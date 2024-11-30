@@ -13,17 +13,15 @@ use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
-    public function register(Request $request){
+    public function register(Request $request)
+    {
         Validations::register($request);
         DB::beginTransaction();
 
         try {
             $user = User::createUser($request->all());
 
-            $token = $user->createToken([
-                'name' => 'Auth::register',
-                'expiration' => 36000,
-            ])->plainTextToken;
+            $token = $user->createToken('Auth::register')->plainTextToken;
 
             DB::commit();
 
@@ -44,17 +42,17 @@ class AuthController extends Controller
      * @return for auth login
      */
 
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         Validations::login($request);
         DB::beginTransaction();
 
         try {
-
             $credentials = $request->only(['email', 'password']);
 
-            if(Auth::attempt($credentials)){
+            if (Auth::attempt($credentials)) {
                 $user  = $request->user();
-                $token = $user->createToken('Auth::login')->plainTextToken;
+                $token = $user->createToken('Auth::login', ['*'], now()->addMinutes(60))->plainTextToken;
 
                 DB::commit();
 
@@ -65,8 +63,10 @@ class AuthController extends Controller
                     ]
                 ]);
             } else {
-                $e = throw new Exception("Login unsuccess", 1);
-                return Response::error($e);
+                return Response::invalid([
+                    'message' => 'Password Tidak Sesuai',
+                    'code' => 422
+                ]);
             }
         } catch (Exception $e) {
             DB::rollBack();
@@ -74,14 +74,17 @@ class AuthController extends Controller
         }
     }
 
-    public function getProfileAuth(Request $request){
-        $data = [
-            'name' => $request->user()->name,
-            'email' => $request->user()->email,
-        ];
+
+    public function logout(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+			auth()->logout();
+		} catch (\Exception $e) {}
+        $request->user()->currentAccessToken()->delete();
+        DB::commit();
         return Response::success([
-            'message' => 'Get data success',
-            'data' => $data,
+            'mesagge' => 'logout Success',
             'code' => 200
         ]);
     }
