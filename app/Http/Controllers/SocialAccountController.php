@@ -3,64 +3,61 @@
 namespace App\Http\Controllers;
 
 use App\Models\SocialAccount;
-use App\Http\Requests\StoreSocialAccountRequest;
-use App\Http\Requests\UpdateSocialAccountRequest;
+use App\Models\User;
+use App\MyClass\Response;
+use Exception;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Laravel\Socialite\Facades\Socialite;
 
 class SocialAccountController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function redirectToSosial(){
+        $provider = "github";
+        return Socialite::driver($provider);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    public function authWithGogle(){
+        DB::beginTransaction();
+        try {
+            $user = Socialite::driver('github')->user();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreSocialAccountRequest $request)
-    {
-        //
-    }
+            $findUser = User::where('gogle_id', $user->id)->first();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(SocialAccount $socialAccount)
-    {
-        //
-    }
+            if (!$findUser) {
+                $user = User::create([
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'gogle_id' => $user->id,
+                    'password' => Hash::make('admin@123'),
+                ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SocialAccount $socialAccount)
-    {
-        //
-    }
+                $token = $user->createToken(['Auth::login', ['*'], now()->addMinutes(120)])->plainTextToken;
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSocialAccountRequest $request, SocialAccount $socialAccount)
-    {
-        //
-    }
+                return Response::success([
+                    'message' => 'Login Success',
+                    'data' => [
+                        'token' => $token
+                    ],
+                    'code' => 200
+                ]);
+            }else {
+                $token = $findUser->createToken('Auth::login', ['*'], now()->addMinutes(120))->plainTextToken;
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SocialAccount $socialAccount)
-    {
-        //
+                return Response::success([
+                    'message' => 'Login Success',
+                    'data' => [
+                        'token' => $token
+                    ],
+                    'code' => 200
+                ]);
+            }
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollBack();
+            
+            return Response::error($e);
+        }
     }
+    
 }

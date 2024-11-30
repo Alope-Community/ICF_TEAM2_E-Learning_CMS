@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\CategoryCourse;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        CategoryCourse::create([
+            'name' => 'React Series',
+            'description' => 'Series ini kita akan membahas mengenai react.'
+        ]);
+        CategoryCourse::create([
+            'name' => 'Laravel Series',
+            'description' => 'Series ini kita akan membahas mengenai laravel.'
+        ]);
+        CategoryCourse::create([
+            'name' => 'c++ Series',
+            'description' => 'Series ini kita akan membahas mengenai react.'
+        ]);
+        CategoryCourse::create([
+            'name' => 'java Series',
+            'description' => 'Series ini kita akan membahas mengenai react.'
+        ]);
     }
 }

@@ -21,16 +21,16 @@ class AuthController extends Controller
         try {
             $user = User::createUser($request->all());
 
-            $token = $user->createToken('Auth::register')->plainTextToken;
-
             DB::commit();
 
             return Response::success([
                 'message' => 'created data successfully',
-                'code' => 200,
                 'data' => [
-                    'token' => $token,
-                ],
+                    'name' => $request->name,
+                    'email' => $request->email,
+                    'password' => $request->password,
+                ], 
+                'code' => 200,
             ]);
         } catch (Exception $e) {
             DB::rollBack();
@@ -52,7 +52,7 @@ class AuthController extends Controller
 
             if (Auth::attempt($credentials)) {
                 $user  = $request->user();
-                $token = $user->createToken('Auth::login', ['*'], now()->addMinutes(60))->plainTextToken;
+                $token = $user->createToken('Auth::login', ['*'], now()->addMinutes(120))->plainTextToken;
 
                 DB::commit();
 

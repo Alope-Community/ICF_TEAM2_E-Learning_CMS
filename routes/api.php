@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseCategoryController;
-use App\Http\Controllers\CourseController;
+// use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SocialAccountController;
+use App\Models\CategoryCourse;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/register', [AuthController::class, 'register'])->name('auth.register');
 Route::post('/auth/login', [AuthController::class, 'login'])->name('auth.login');
+// Route::post('/auth/github/callback', [SocialAccountController::class, 'redirectToSosial'])->name('auth.github');
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
@@ -29,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     Route::middleware(['auth:sanctum', 'isUser'])->group(function(){
-
+        Route::get('category-course/{name}', [CourseCategoryController::class, 'get'])->name('category-course');
     });
 
     Route::middleware(['auth:sanctum', 'isTeacher'])->group(function(){
