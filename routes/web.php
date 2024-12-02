@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\RedirectController;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +17,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    return view('login');
+})->name('formLogin');
+
+Route::get('/welkom', function () {
     return view('welcome');
+})->name('welcome');
+
+Route::post('/login', [LoginController::class, 'login'])->name('requestLogin');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [RedirectController::class, 'Dashboard'])->name('dashboard');
 });
