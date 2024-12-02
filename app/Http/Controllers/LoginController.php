@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function index(){
+        return view('auth.login');
+    }
+    
     public function login(Request $request)
     {
         Validations::login($request);
@@ -34,5 +38,23 @@ class LoginController extends Controller
             DB::rollBack();
             return Response::error($e);
         }
+    }
+
+    public function logout(Request $request) {
+        // Hapus sesi Laravel
+        Auth::logout();
+
+        // Hapus semua cookie terkait sesi dan XSRF-TOKEN
+        $cookieSession = cookie()->forget('laravel_session');
+        $cookieXsrf = cookie()->forget('XSRF-TOKEN');
+
+        // Regenerate session untuk keamanan tambahan
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        // Redirect atau kembalikan respons JSON
+        return redirect('/')
+            ->withCookie($cookieSession)
+            ->withCookie($cookieXsrf);
     }
 }
