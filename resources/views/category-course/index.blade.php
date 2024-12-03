@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody>
-    
+
                     </tbody>
                 </table>
             </div>
@@ -52,7 +52,7 @@
                 },
             ],
             drawCallback: settings => {
-                
+
             }
         })
     </script>

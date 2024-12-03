@@ -3,11 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,26 @@ class User extends Authenticatable
 	{
 		return Hash::check($password, $this->password);
 	}
+
+    public static function dataTable($request)
+    {
+        $data = self::select([ 'users.*' ]);
+
+        return DataTables::eloquent($data)
+            ->addColumn('action', function ($data) {
+                $action = '
+                	 <button type="button"
+                data-delete-message="Yakin ingin menghapus <strong>' . $data->name . '</strong>?"
+                data-delete-href="' . route('user.destroy', $data->id) . '"
+                class="btn mb-2 icon-left btn-outline-danger btn-delete">
+                <i class="ti-trash"></i> Hapus
+            </button>
+                ';
+                return $action;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
 
     // public function avatarPath()
@@ -73,7 +94,7 @@ class User extends Authenticatable
         $user->setPassword($request['password']);
         return $user;
     }
-    
+
     public function updateUser($request){
         $this->update($request->except('password'));
         $this->setPassword($request->password);

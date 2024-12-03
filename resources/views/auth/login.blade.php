@@ -58,7 +58,7 @@
                             </div>
 
                             <div class="d-flex align-items-center">
-                                <!-- Ubah type ke "button" -->
+                                <!-- Ubah type ke "button" -->  
                                 <button type="button" id="submit" class="btn btn-primary ms-auto">
                                     Login
                                 </button>

@@ -23,8 +23,8 @@ class CategoryCourse extends Model
     public static function dataTable($request)
     {
         $data = self::select([ 'category_courses.*' ]);
-        
-        return \DataTables::eloquent($data)
+
+        return DataTables::eloquent($data)
             ->addColumn('action', function ($data) {
                 $action = '
                 	<div class="dropdown">

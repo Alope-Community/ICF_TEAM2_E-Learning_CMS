@@ -59,9 +59,6 @@
     <script>
         Main.init()
     </script>
-<<<<<<< HEAD
-
-=======
     <script>
         const setActiveMenu = () => {
             let isFoundLink = false;
@@ -121,7 +118,6 @@
         })
     </script>
     @yield('scripts')
->>>>>>> 260bb7c3cf85f6fb6608494e1b93865c5a356e38
 </body>
 
 </html>
