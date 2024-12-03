@@ -51,33 +51,7 @@
     <script>
         Main.init()
     </script>
-    <script>
-        $(document).ready(function () {
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $('#logout').off('click').on('click', function (e) {
-                e.preventDefault();
-
-                $.ajax({
-                    url: 'http://127.0.0.1:8000/api/auth/logout', // Endpoint API
-                    type: 'GET',
-                    success: function (response) {
-                        console.log(response);
-                    },
-                    error: function (xhr, status, error) {
-                        console.error('pesan error:', xhr.responseText);
-                    }
-
-                })
-            })
-
-        })
-    </script>
 </body>
 
 </html>

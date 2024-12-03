@@ -36,12 +36,6 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="mb-2 text-muted" for="email">E-Mail Address</label>
-                                @error('api_error')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
-                                @error('email')
-                                <small class="text-danger">{{ $message }}</small>
-                                @enderror
                                 <div class="input-group input-group-join mb-3">
                                     <input id="email" type="email" placeholder="Enter Email" class="form-control"
                                         name="email" required>
@@ -128,15 +122,6 @@
 
 
 
-    {{-- <form>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-
-        <button type="button" id="submit">Login</button>
-    </form> --}}
 
 
 

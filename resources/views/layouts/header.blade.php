@@ -157,11 +157,14 @@
                                 <i class="ti-settings"></i> Setting
                             </div>
                         </a>
-                        <a id="logout">
-                            <div class="description">
-                                <i class="ti-power-off"></i> Logout
-                            </div>
-                        </a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); this.closest('form').submit();">
+                                <div class="description">
+                                    <i class="ti-power-off"></i> Logout
+                                </div>
+                            </a>
+                        </form>
                     </li>
                 </ul>
             </div>
@@ -169,4 +172,5 @@
         </div>
     </div>
 </header>
+
 
