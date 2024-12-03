@@ -11,28 +11,10 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class SettingController extends Controller
-{
-    // public function setProfile(Request $request, User $user)
-    // {
-    //     Validations::class;
-    //     DB::beginTransaction();
-
-    //     try {
-    //         $user->updateUser($request->all());
-    //         $user->setAvatar($request);
-
-    //         DB::commit();
-    //         return Response::success([
-    //             'message' => 'Update Success',
-    //             'code' => 200,
-    //         ]);
-    //     } catch (Exception $e) {
-    //         DB::rollBack();
-
-    //         return Response::error($e);
-    //     }
-    // }
-    
+{   
+    public function profile(){
+        return view('settigs.profile');
+    }
     public function getProfileAuth(Request $request){
         $data = [
             'name' => $request->user()->name,

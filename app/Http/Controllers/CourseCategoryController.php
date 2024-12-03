@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\DB;
 
 class CourseCategoryController extends Controller
 {
+    public function index(Request $request){
+        if($request->ajax()) {
+			return CategoryCourse::dataTable($request);
+		}
+        return view('category-course.index',[
+
+        ]);
+    }
     public function get($name){
         echo($name);
         DB::beginTransaction();

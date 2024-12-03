@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 
 class RedirectController extends Controller
 {
-
-    public function dashboard () {
-        return view ('dashboard',
-        ['users' => User::all()]
-    );
+    public function dashboard()
+    {
+        return view(
+            'dashboard.dashboard',
+            ['users' => User::all()]
+        );
     }
-
 }
