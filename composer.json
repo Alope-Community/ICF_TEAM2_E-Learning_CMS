@@ -11,7 +11,11 @@
         "laravel/sanctum": "^3.3",
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.8",
+<<<<<<< HEAD
+        "yajra/laravel-datatables": "^10.0"
+=======
         "yajra/laravel-datatables": "10.0"
+>>>>>>> 260bb7c3cf85f6fb6608494e1b93865c5a356e38
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

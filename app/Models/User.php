@@ -43,12 +43,14 @@ class User extends Authenticatable
         return DataTables::eloquent($data)
             ->addColumn('action', function ($data) {
                 $action = '
-                	 <button type="button"
-                data-delete-message="Yakin ingin menghapus <strong>' . $data->name . '</strong>?"
-                data-delete-href="' . route('user.destroy', $data->id) . '"
-                class="btn mb-2 icon-left btn-outline-danger btn-delete">
-                <i class="ti-trash"></i> Hapus
-            </button>
+                	 <div class="dropdown">
+                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            pilih Aksi
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><button class="dropdown-item btn-delete"" data-delete-href="'. route('user.destroy', $data->id) . '">Hapus</button></li>
+                        </ul>
+                    </div>
                 ';
                 return $action;
             })
@@ -56,35 +58,6 @@ class User extends Authenticatable
             ->make(true);
     }
 
-
-    // public function avatarPath()
-	// {
-	// 	return storage_path('app/public/avatars/'.$this->avatar);
-	// }
-
-	// public function avatarLink()
-	// {
-	// 	if($this->isHasAvatar()) {
-	// 		return url('storage/avatars/'.$this->avatar);
-	// 	}
-
-	// 	return url('img/default-avatar.jpg');
-	// }
-
-    // public function setAvatar($request)
-	// {
-	// 	if(!empty($request->upload_avatar)) {
-	// 		$this->removeAvatar();
-	// 		$file = $request->file('upload_avatar');
-	// 		$filename = date('YmdHis_').$file->getClientOriginalName();
-	// 		$file->move(storage_path('app/public/avatars'), $filename);
-	// 		$this->update([
-	// 			'avatar' => $filename,
-	// 		]);
-	// 	}
-
-	// 	return $this;
-	// }
 
     /**
      * @return For Crud User

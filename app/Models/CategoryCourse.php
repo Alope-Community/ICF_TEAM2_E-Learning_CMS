@@ -11,9 +11,15 @@ class CategoryCourse extends Model
     use HasFactory;
 
     /**
+     * @return protected
+     */
+    protected $guarded = [''];
+
+    /**
      *  @return Relationship
      */
-    public function course(){
+    public function course()
+    {
         return $this->hasMany(Course::class, 'category_course_id');
     }
 
@@ -22,28 +28,47 @@ class CategoryCourse extends Model
      */
     public static function dataTable($request)
     {
-        $data = self::select([ 'category_courses.*' ]);
+        $data = self::select(['category_courses.*']);
 
         return DataTables::eloquent($data)
             ->addColumn('action', function ($data) {
                 $action = '
                 	<div class="dropdown">
-						<button class="btn btn-primary px-2 py-1 dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							Pilih Aksi
-						</button>
-						<div class="dropdown-menu">
-							<a class="dropdown-item edit" href="javascript:void(0);" data-edit-href="" data-get-href="">
-								<i class="fas fa-pencil-alt mr-1"></i> Edit
-							</a>
-							<a class="dropdown-item delete" href="javascript:void(0)" data-delete-message="Yakin ingin menghapus <strong>ini</strong>?" data-delete-href="">
-								<i class="fas fa-trash mr-1"></i> Hapus
-							</a>
-						</div>
-					</div>
+                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            pilih Aksi
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><button class="dropdown-item btn-edit" data-edit-href="' . route('categoryCourse.update', $data->id) . '" data-get-href="' . route('categoryCourse.edit', $data->id) . '">Edit</button></li>
+                            <li><button class="dropdown-item btn-delete"" data-delete-href="'. route('categoryCourse.destroy', $data->id) . '">Hapus</button></li>
+                        </ul>
+                    </div>
                 ';
                 return $action;
             })
-            ->rawColumns(['action'])
+            ->editColumn('image', function($data){
+                return $data->image ? '<a href="'.$data->image.'" class="text-success">Lihat Gambar</a>' : "-";
+            })
+            ->rawColumns(['action', 'image'])
             ->make(true);
+    }
+
+    /**
+     * @return CRUD
+     */
+    public static function createCategory($request)
+    {
+        $data = self::create($request);
+        return $data;
+    }
+
+    public function editCategory(array $request)
+    {
+        $this->update($request);
+        return $this;
+    }
+
+    public function deleteCategory()
+    {
+        return $this->delete();
     }
 }

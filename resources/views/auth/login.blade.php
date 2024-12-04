@@ -99,8 +99,7 @@
                     data: JSON.stringify(formData), // Kirim data sebagai JSON
                     contentType: 'application/json', // Format JSON
                     success: function (response) {
-                        console.log('Request berhasil:', response);
-
+                        ajaxSuccessHandling(response)
                         // Lakukan tindakan setelah login berhasil, misalnya redirect
                         window.location.href = '/dashboard';
                     },
