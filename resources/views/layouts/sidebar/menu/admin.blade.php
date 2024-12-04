@@ -10,12 +10,12 @@
             <span class="text-uppercase">Menu</span>
         </li>
         <li>
-            <a href="#" class="main-menu has-dropdown">
+            <a href="javascript:void" class="main-menu has-dropdown">
                 <i class="ti-user"></i>
                 <span>User</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="#" class="link">
+                <li><a href="{{ route('users') }}" class="link">
                         <span>Kelola User</span></a>
                 </li>
             </ul>

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\DataTables\UserDataTable;
 use App\Models\User;
+use App\MyClass\Response;
 use App\MyClass\Validations;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -14,19 +16,21 @@ class UserController extends Controller
         if($request->ajax()) {
 			return User::dataTable($request);
 		}
-        return view('user',[
-
-        ]);
+        return view('user.user');
     }
 
-    public function destroy ($id) {
+    public function destroy (User $user) {
+        DB::beginTransaction();
         try {
-            $user = User::findOrFail($id);
             $user->delete();
 
-            return response()->json(['message' => 'Data berhasil dihapus'], 200);
+            DB::commit();
+            return Response::success([
+                'message' => 'Data berhasil dihapus'
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Terjadi kesalahan saat menghapus data'], 500);
+            DB::rollBack();
+            return Response::error($e);
         }
     }
 }

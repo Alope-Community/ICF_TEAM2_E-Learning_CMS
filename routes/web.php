@@ -31,13 +31,11 @@ Route::middleware('guest')->group(function(){
 Route::middleware('auth')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [RedirectController::class, 'Dashboard'])->name('dashboard');
-    Route::get('/users', [UserController::class, 'index'])->name('users');
-    Route::delete('/users/{$id}', [UserController::class, 'destroy'])->name('user.destroy');
 
-
-    // Route::prefix('user')->group(function(){
-    //     Route::get('', [User::class, 'index'])->name('users');
-    // });
+    Route::prefix('user')->group(function(){
+        Route::get('', [UserController::class, 'index'])->name('users');
+        Route::get('/{user}/delete', [UserController::class, 'destroy'])->name('user.destroy');
+    });
 
     Route::prefix('setigs')->group(function(){
         Route::get('profile', [SettingController::class, 'profile'])->name('setings.profile');
@@ -45,5 +43,9 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('category-course')->group(function(){
         Route::get('', [CourseCategoryController::class, 'index'])->name('categoryCourse');
+        Route::post('/create', [CourseCategoryController::class, 'create'])->name('categoryCourse.create');
+        Route::get('{categoryCourse}/edit', [CourseCategoryController::class, 'edit'])->name('categoryCourse.edit');
+        Route::put('{categoryCourse}/update', [CourseCategoryController::class, 'update'])->name('categoryCourse.update');
+        Route::get('{categoryCourse}/delete', [CourseCategoryController::class, 'destroy'])->name('categoryCourse.destroy');
     });
 });

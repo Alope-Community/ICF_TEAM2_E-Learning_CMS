@@ -43,4 +43,12 @@ class Validations
             'confirm_password.same' => 'Konfirmasi password tisak sesuai dengan password baru amda',
         ]);
     }
+
+    public static function createDataCategory($request){
+        $request->validate([
+            'name' => 'required|string|unique:category_courses,name',
+            'image' => 'required',
+            'description' => 'required'
+        ]);
+    }
 }

@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="{{ asset('vendor/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/izitoast/css/iziToast.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/izitoast/css/iziToast.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}">
 </head>
 
 <body>
@@ -56,6 +57,8 @@
     <script src="{{ asset('vendor/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('vendor/izitoast/js/iziToast.js') }}"></script>
     <script src="{{ asset('vendor/izitoast/js/iziToast.min.js') }}"></script>
+    <script src="{{ asset('vendor/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('js/myJs.js') }}"></script>
     <script>
         Main.init()
     </script>
