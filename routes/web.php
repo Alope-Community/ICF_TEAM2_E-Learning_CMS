@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\CourseCategoryController;
+use App\Http\Controllers\TaskController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::middleware('guest')->group(function(){
 Route::middleware('auth')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [RedirectController::class, 'Dashboard'])->name('dashboard');
+    Route::resource('/task', TaskController::class);
 
     Route::prefix('user')->group(function(){
         Route::get('', [UserController::class, 'index'])->name('users');

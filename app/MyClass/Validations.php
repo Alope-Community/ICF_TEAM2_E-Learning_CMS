@@ -51,4 +51,11 @@ class Validations
             'description' => 'required'
         ]);
     }
+
+    public static function task($request){
+        $request->validate([
+            'task' => 'required',
+            'course_id' => 'required',
+        ]);
+    }
 }
