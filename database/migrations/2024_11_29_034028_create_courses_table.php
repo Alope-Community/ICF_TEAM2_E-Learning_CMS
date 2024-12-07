@@ -16,8 +16,8 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('description')->nullable();
             $table->string('course');
-            $table->string('type');
             $table->string('category_course_id');
+            $table->string('user_id');
             $table->timestamps();
         });
     }

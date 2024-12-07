@@ -52,6 +52,16 @@ class Validations
         ]);
     }
 
+    public static function createDataCourse($request){
+        $request->validate([
+            'name' => 'required|string|unique:courses,name',
+            'course' => 'required',
+            'description' => 'required',
+            'category_course_id' => 'required',
+            'user_id' => 'required'
+        ]);
+    }
+
     public static function task($request){
         $request->validate([
             'task' => 'required',

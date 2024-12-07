@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\CourseCategoryController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\TaskController;
 
 /*
@@ -56,5 +57,13 @@ Route::middleware('auth')->group(function () {
         Route::get('{categoryCourse}/edit', [CourseCategoryController::class, 'edit'])->name('categoryCourse.edit');
         Route::put('{categoryCourse}/update', [CourseCategoryController::class, 'update'])->name('categoryCourse.update');
         Route::get('{categoryCourse}/delete', [CourseCategoryController::class, 'destroy'])->name('categoryCourse.destroy');
+    });
+
+    Route::prefix('course')->group(function(){
+        Route::get('', [CourseController::class, 'index'])->name('course');
+        Route::post('/create', [CourseController::class, 'create'])->name('course.create');
+        Route::get('{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
+        Route::put('{course}/update', [CourseController::class, 'update'])->name('course.update');
+        Route::get('{course}/delete', [CourseController::class, 'destroy'])->name('course.destroy');
     });
 });
