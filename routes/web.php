@@ -32,7 +32,14 @@ Route::middleware('guest')->group(function(){
 Route::middleware('auth')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [RedirectController::class, 'Dashboard'])->name('dashboard');
-    Route::resource('/task', TaskController::class);
+
+    Route::prefix('task')->group(function(){
+        Route::get('', [TaskController::class, 'index'])->name('tasks');
+        Route::post('/store', [TaskController::class, 'store'])->name('task.store');
+        Route::get('{task}/edit', [TaskController::class, 'edit'])->name('task.edit');
+        Route::put('{task}/update', [TaskController::class, 'update'])->name('task.update');
+        Route::get('{task}/destroy', [TaskController::class, 'destroy'])->name('task.destroy');
+    });
 
     Route::prefix('user')->group(function(){
         Route::get('', [UserController::class, 'index'])->name('users');

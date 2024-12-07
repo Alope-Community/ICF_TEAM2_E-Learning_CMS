@@ -21,11 +21,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
-// Route::post('/auth/github/callback', [SocialAccountController::class, 'redirectToSosial'])->name('auth.github');
+Route::prefix('/course-category')->group(function(){
+    Route::get('', [CourseCategoryController::class, 'get']);
+});
 
 Route::middleware('auth:sanctum')->group(function(){
     Route::get('/auth/logout', [AuthController::class, 'logout']);
-    
+
     Route::prefix('settings')->group(function(){
         Route::get('/profile', [SettingController::class, 'getProfileAuth']);
         Route::post('/change-password', [SettingController::class, 'updatePassword']);
@@ -36,8 +38,6 @@ Route::middleware('auth:sanctum')->group(function(){
     });
 
     Route::middleware(['auth:sanctum', 'isTeacher'])->group(function(){
-        Route::prefix('/course-category')->group(function(){
-            Route::get('', [CourseCategoryController::class, 'get']);
-        });
+
     });
 });

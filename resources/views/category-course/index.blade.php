@@ -180,7 +180,7 @@
                             formUpdate.find(`[name="image"]`).val(category.image);
 
                             console.log(editHref)
-                            
+
                             formSubmit(
                                 modalUpdate,
                                 formUpdate,
@@ -191,7 +191,7 @@
                                 }
                             )
 
-                            
+
                         })
                         .fail(error => {
                             ajaxErrorHandling(error);

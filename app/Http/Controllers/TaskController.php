@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoryCourse;
 use Exception;
 use App\Models\Task;
 use App\Models\Course;
@@ -66,37 +67,57 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        $task = Task::find($id);
+        DB::beginTransaction();
 
-        if ($task) {
-            return response()->json([
+        try {
+            return Response::success([
                 'status' => 'success',
-                'data' => $task
+                'task' => $task,
+                'code' => 200
             ]);
+        } catch (Exception $e) {
+            return Response::error($e);
         }
-
-        return response()->json([
-            'status' => 'error',
-            'message' => 'Task tidak ditemukan.'
-        ], 404);
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Task $task)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            $task -> updateTask($request->all());
+
+            DB::commit();
+            return Response::success();
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return Response::error($e);
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Task $task)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            $task -> deleteTask();
+
+            DB::commit();
+            return Response::success();
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return Response::error($e);
+        }
     }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Date;
 
 class Task extends Model
 {
@@ -34,15 +36,31 @@ class Task extends Model
                             pilih Aksi
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><button class="dropdown-item btn-edit" data-edit-href="' . route('task.update', $data->id) . '" data-get-href="' . route('task.edit', $data->id) . '" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"data-bs-target="#createModal">Edit</button></li>
+                            <li><button class="dropdown-item btn-edit" data-edit-href="' . route('task.update', $data->id) . '" data-get-href="' . route('task.edit', $data->id) . '" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"data-bs-target="#updateModal">Edit</button></li>
                             <li><button class="dropdown-item btn-delete"" data-delete-href="'. route('task.destroy', $data->id) . '">Hapus</button></li>
                         </ul>
                     </div>
                 ';
                 return $action;
             })
+            ->editColumn('created_at', function ($data) {
+                $date = Carbon::parse($data->created_at)->locale('id');
+                $date -> settings(['formatFunction' => 'translatedFormat']);
+                return $date->format('j F Y,  h:i a');
+            })
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    public function updateTask(array $request)
+    {
+        $this->update($request);
+        return $this;
+    }
+
+    public function deleteTask()
+    {
+        $this->delete();
     }
 
 }

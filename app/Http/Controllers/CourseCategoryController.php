@@ -80,17 +80,10 @@ class CourseCategoryController extends Controller
     /**
      * Api
      */
-    public function get($name){
-        echo($name);
+    public function get(){
         DB::beginTransaction();
         try {
-            $data = [];
-            if(!$name) {
-                $data += CategoryCourse::getAllData();
-            } else{
-                $data += CategoryCourse::where('name', $name);
-            }
-
+            $data = CategoryCourse::all();
             return Response::success([
                 'message' => 'Get data category success',
                 'data' => $data,
