@@ -21,7 +21,7 @@ class TaskController extends Controller
         if($request->ajax()) {
 			return Task::dataTable($request);
 		}
-        return view('teacher.task',[
+        return view('task.index',[
                 'courses' => Course::select(['id', 'name'])->get()
         ]);
     }
