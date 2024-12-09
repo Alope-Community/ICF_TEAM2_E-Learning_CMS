@@ -66,4 +66,9 @@ Route::middleware('auth')->group(function () {
         Route::put('{course}/update', [CourseController::class, 'update'])->name('course.update');
         Route::get('{course}/delete', [CourseController::class, 'destroy'])->name('course.destroy');
     });
+
+    Route::prefix('setigs')->group(function(){
+        Route::post('profile', [SettingController::class, 'profile'])->name('setings.profile');
+        Route::post('change-password', [SettingController::class, 'updatePassword'])->name('setings.changePassword');
+    });
 });
