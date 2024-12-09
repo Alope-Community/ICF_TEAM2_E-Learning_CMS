@@ -10,6 +10,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrolmentController;
 use App\Http\Controllers\TaskController;
 
 /*
@@ -64,6 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/create', [CourseController::class, 'create'])->name('course.create');
         Route::get('{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
         Route::put('{course}/update', [CourseController::class, 'update'])->name('course.update');
+        Route::get('{course}/lihat-siswa', [EnrolmentController::class, 'index'])->name('course.lihat-siswa');
         Route::get('{course}/delete', [CourseController::class, 'destroy'])->name('course.destroy');
     });
 

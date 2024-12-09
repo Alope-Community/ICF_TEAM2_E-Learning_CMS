@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\api\AuthController;
 use App\Http\Controllers\CourseCategoryController;
+use App\Http\Controllers\CourseController;
+use App\Http\Controllers\EnrolmentController;
 // use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SocialAccountController;
@@ -23,6 +25,7 @@ Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/login', [AuthController::class, 'login']);
 Route::prefix('/course-category')->group(function(){
     Route::get('', [CourseCategoryController::class, 'get']);
+    Route::post('{categoryCourse}/enrolment', [EnrolmentController::class, 'create']);
 });
 
 Route::middleware('auth:sanctum')->group(function(){
@@ -33,11 +36,8 @@ Route::middleware('auth:sanctum')->group(function(){
         Route::post('/change-password', [SettingController::class, 'updatePassword']);
     });
 
-    Route::middleware(['auth:sanctum', 'isUser'])->group(function(){
-        Route::get('category-course/{name}', [CourseCategoryController::class, 'get']);
-    });
 
-    Route::middleware(['auth:sanctum', 'isTeacher'])->group(function(){
-
+    Route::middleware(['isUser', 'isEnrolment'])->group(function(){
+        Route::get('{categoryCourse}/course', [CourseController::class, 'get']);
     });
 });

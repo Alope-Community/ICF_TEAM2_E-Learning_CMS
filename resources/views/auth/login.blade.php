@@ -112,18 +112,3 @@
     </script>
 
 </body>
-
-<<<<<<< HEAD:resources/views/login.blade.php
-</html>
-
-
-
-
-
-
-
-
-
-=======
-</html>
->>>>>>> 260bb7c3cf85f6fb6608494e1b93865c5a356e38:resources/views/auth/login.blade.php

@@ -37,7 +37,7 @@
                 <span>Materi</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="#" class="link">
+                <li><a href="{{ route('course') }}" class="link">
                         <span>Kelola Materi</span></a>
                 </li>
             </ul>
@@ -48,7 +48,7 @@
                 <span>Tugas</span>
             </a>
             <ul class="sub-menu">
-                <li><a href="#" class="link">
+                <li><a href="{{ route('tasks') }}" class="link">
                         <span>Kelola tugas</span></a>
                 </li>
             </ul>
@@ -65,7 +65,7 @@
                 <li><a href="{{ route('setings.profile') }}" class="link">
                         <span>Kelola Profile</span></a>
                 </li>
-                <li><a href="#" class="link">
+                <li><a href="{{ route('setings.changePassword') }}" class="link">
                         <span>Ganti Sandi</span></a>
                 </li>
             </ul>

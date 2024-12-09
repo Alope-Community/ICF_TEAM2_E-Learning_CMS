@@ -18,17 +18,6 @@
                         <a class="dropdown-item" href="#">Notifikasi</a>
                     </li> -->
                     <li class="menu-content ps-menu">
-<<<<<<< HEAD
-                        <a href="#">
-                            <div class="description">
-                                <i class="ti-user"></i> Profile
-                            </div>
-                        </a>
-                        <a href="#">
-                            <div class="description">
-                                <i class="ti-settings"></i> Setting
-                            </div>
-                        </a>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a href="{{ route('logout') }}" class="nav-link" onclick="event.preventDefault(); this.closest('form').submit();">
@@ -37,13 +26,6 @@
                                 </div>
                             </a>
                         </form>
-=======
-                        <a id="logout">
-                            <div class="description">
-                                <i class="ti-power-off"></i> Logout
-                            </div>
-                        </a>
->>>>>>> 260bb7c3cf85f6fb6608494e1b93865c5a356e38
                     </li>
                 </ul>
             </div>

@@ -7,15 +7,28 @@ use App\Models\Course;
 use App\MyClass\Response;
 use App\MyClass\Validations;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StoreCourseRequest;
-use App\Http\Requests\UpdateCourseRequest;
 use App\Models\CategoryCourse;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function get(Request $request){
-
+    public function get(CategoryCourse $categoryCourse){
+        try {
+            $data = DB::table('courses.*')
+                    ->where('category_course_id', $categoryCourse)
+                    ->all();
+            if (!$data) {
+                return Response::invalid([
+                    'message' => 'Data Belum Ada',
+                    'code' => 403
+                ]);
+            }
+            return Response::success([
+                'data' => $data
+            ]);
+        } catch (Exception $e) {
+            return Response::error($e);
+        }
     }
 
     public function index(Request $request)
