@@ -14,18 +14,21 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // CategoryCourse::create([
-        //     'name' => 'React Series',
-        //     'description' => 'Series ini kita akan membahas mengenai react.'
-        // ]);
-        // CategoryCourse::create([
-        //     'name' => 'Laravel Series',
-        //     'description' => 'Series ini kita akan membahas mengenai laravel.'
-        // ]);
-        // CategoryCourse::create([
-        //     'name' => 'c++ Series',
-        //     'description' => 'Series ini kita akan membahas mengenai react.'
-        // ]);
+        CategoryCourse::create([
+            'name' => 'React Series',
+            'description' => 'Series ini kita akan membahas mengenai react.',
+            'image' => 'link'
+        ]);
+        CategoryCourse::create([
+            'name' => 'Laravel Series',
+            'description' => 'Series ini kita akan membahas mengenai laravel.',
+            'image' => 'link'
+        ]);
+        CategoryCourse::create([
+            'name' => 'c++ Series',
+            'description' => 'Series ini kita akan membahas mengenai react.',
+            'image' => 'link'
+        ]);
         CategoryCourse::create([
             'name' => 'java Series',
             'description' => 'Series ini kita akan membahas mengenai react.',

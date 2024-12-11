@@ -10,21 +10,26 @@ class Enrolment extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * @return Relathionship
      */
-    public function category(){
+    public function category()
+    {
         return $this->belongsTo(CategoryCourse::class, 'category_id');
     }
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 
     /**
      * Create
      */
-    public static function createEnrolment($request){
+    public static function createEnrolment($request)
+    {
         $data = self::create($request);
         return $data;
     }
@@ -32,7 +37,8 @@ class Enrolment extends Model
     /**
      * Data Tables
      */
-    public static function dataTables($course){
+    public static function dataTables($course)
+    {
         $data = self::select(['enrolments.*', 'courses.*', 'users.*']);
 
         return DataTables::eloquent($data)

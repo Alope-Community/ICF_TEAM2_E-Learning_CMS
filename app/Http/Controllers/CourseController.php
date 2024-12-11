@@ -12,11 +12,10 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function get(CategoryCourse $categoryCourse){
+    public function get(CategoryCourse $categoryCourse)
+    {
         try {
-            $data = DB::table('courses.*')
-                    ->where('category_course_id', $categoryCourse)
-                    ->all();
+            $data = Course::where('category_course_id', $categoryCourse);
             if (!$data) {
                 return Response::invalid([
                     'message' => 'Data Belum Ada',
@@ -24,7 +23,8 @@ class CourseController extends Controller
                 ]);
             }
             return Response::success([
-                'data' => $data
+                'data' => $data,
+                'title' => $categoryCourse->name
             ]);
         } catch (Exception $e) {
             return Response::error($e);
@@ -33,7 +33,7 @@ class CourseController extends Controller
 
     public function index(Request $request)
     {
-        if($request->ajax()) {
+        if ($request->ajax()) {
             return Course::dataTable($request);
         }
 
@@ -60,18 +60,20 @@ class CourseController extends Controller
         }
     }
 
-    public function edit(Course $course){
+    public function edit(Course $course)
+    {
         DB::beginTransaction();
-        try{
+        try {
             return Response::success([
                 'course' => $course
             ]);
-        } catch (Exception $e){
+        } catch (Exception $e) {
             return Response::error($e);
         }
     }
 
-    public function update(Request $request, Course $course){
+    public function update(Request $request, Course $course)
+    {
         DB::beginTransaction();
         try {
             $course->editCourse($request->all());
@@ -85,7 +87,8 @@ class CourseController extends Controller
         }
     }
 
-    public function destroy(Course $course){
+    public function destroy(Course $course)
+    {
         DB::beginTransaction();
         try {
             $course->deleteCourse();

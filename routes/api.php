@@ -22,22 +22,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/auth/register', [AuthController::class, 'register']);
+
 Route::post('/auth/login', [AuthController::class, 'login']);
-Route::prefix('/course-category')->group(function(){
+
+Route::prefix('course-category')->group(function () {
     Route::get('', [CourseCategoryController::class, 'get']);
-    Route::post('{categoryCourse}/enrolment', [EnrolmentController::class, 'create']);
 });
 
-Route::middleware('auth:sanctum')->group(function(){
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/auth/logout', [AuthController::class, 'logout']);
 
-    Route::prefix('settings')->group(function(){
+    Route::prefix('course-category')->group(function () {
+        Route::post('/{categoryCourse}/enrolment', [EnrolmentController::class, 'create']);
+    });
+
+    Route::prefix('settings')->group(function () {
         Route::get('/profile', [SettingController::class, 'getProfileAuth']);
         Route::post('/change-password', [SettingController::class, 'updatePassword']);
     });
 
 
-    Route::middleware(['isUser', 'isEnrolment'])->group(function(){
-        Route::get('{categoryCourse}/course', [CourseController::class, 'get']);
-    });
+    Route::get('category/{categoryCourse}/course', [CourseController::class, 'get'])->name('category.api');
 });
