@@ -14,12 +14,11 @@
                 <table id="dataTable" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Deskripsi</th>
-                            <th>Materi</th>
-                            <th>kategori Materi</th>
-                            <th>Pembuat</th>
-                            <th>Action</th>
+                            <th>Judul</th>
+                            <th style="width: 30%">Deskripsi</th>
+                            <th style="width: 10%">Materi</th>
+                            <th style="width: 20%">kategori Materi</th>
+                            <th style="width: 10%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,11 +62,11 @@
                                     <input type="link" class="form-control" name="course" id="image">
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="basicInput" class="form-label">Deskripsi</label>
                                     <textarea type="text" placeholder="Inputkan Deskripsi" name="description" class="form-control" id="description"></textarea>
-                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 </div>
                             </div>
 
@@ -161,10 +160,6 @@
                 {
                     data: 'category_course_id',
                     name: "materi",
-                },
-                {
-                    data: 'user_id',
-                    name: "pembuat",
                 },
                 {
                     data: 'action',

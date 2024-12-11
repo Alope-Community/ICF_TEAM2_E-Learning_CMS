@@ -32,9 +32,9 @@ class Course extends Model
                             pilih Aksi
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="'. route('course.lihat-tugas', $data->id) . '">Lihat Data Tugas</a></li>
                             <li><button class="dropdown-item btn-edit" data-edit-href="' . route('course.update', $data->id) . '" data-get-href="' . route('course.edit', $data->id) . '">Edit</button></li>
                             <li><button class="dropdown-item btn-delete"" data-delete-href="'. route('course.destroy', $data->id) . '">Hapus</button></li>
-                            <li><button class="dropdown-item" href="'. route('course.lihat-siswa', $data->id) . '">Lihat-Siswa</button></li>
                         </ul>
                     </div>
                 ';
@@ -42,6 +42,9 @@ class Course extends Model
             })
             ->editColumn('image', function($data){
                 return $data->image ? '<a href="'.$data->image.'" class="text-success">Lihat Gambar</a>' : "-";
+            })
+            ->editColumn('category_course_id', function($data){
+                return $data->categoryCourse ? $data->categoryCourse->name : 'Tidak Diketahui';
             })
             ->rawColumns(['action', 'image'])
             ->make(true);

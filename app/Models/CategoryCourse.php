@@ -28,7 +28,12 @@ class CategoryCourse extends Model
      */
     public static function dataTable($request)
     {
-        $data = self::select(['category_courses.*']);
+        if (auth()->user()->role == 'Admin') {
+            $data = self::select(['category_courses.*']);
+        } else {
+            $data = self::select(['category_courses.*'])
+                        ->where('user_id', auth()->user()->id);
+        }
 
         return DataTables::eloquent($data)
             ->addColumn('action', function ($data) {
@@ -38,6 +43,7 @@ class CategoryCourse extends Model
                             pilih Aksi
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="'. route('categoryCourse.lihat-siswa', $data->id) . '">Lihat Siswa</a></li>
                             <li><button class="dropdown-item btn-edit" data-edit-href="' . route('categoryCourse.update', $data->id) . '" data-get-href="' . route('categoryCourse.edit', $data->id) . '">Edit</button></li>
                             <li><button class="dropdown-item btn-delete"" data-delete-href="'. route('categoryCourse.destroy', $data->id) . '">Hapus</button></li>
                         </ul>

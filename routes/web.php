@@ -11,6 +11,7 @@ use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrolmentController;
+use App\Http\Controllers\SubmitedTaskController;
 use App\Http\Controllers\TaskController;
 
 /*
@@ -43,21 +44,19 @@ Route::middleware('auth')->group(function () {
         Route::get('{task}/destroy', [TaskController::class, 'destroy'])->name('task.destroy');
     });
 
-    Route::prefix('user')->group(function(){
+    Route::middleware('isAdmin')->prefix('user')->group(function(){
         Route::get('', [UserController::class, 'index'])->name('users');
         Route::get('/{user}/delete', [UserController::class, 'destroy'])->name('user.destroy');
     });
 
-    Route::prefix('setigs')->group(function(){
-        Route::get('profile', [SettingController::class, 'profile'])->name('setings.profile');
-    });
-
+    
     Route::prefix('category-course')->group(function(){
         Route::get('', [CourseCategoryController::class, 'index'])->name('categoryCourse');
         Route::post('/create', [CourseCategoryController::class, 'create'])->name('categoryCourse.create');
         Route::get('{categoryCourse}/edit', [CourseCategoryController::class, 'edit'])->name('categoryCourse.edit');
         Route::put('{categoryCourse}/update', [CourseCategoryController::class, 'update'])->name('categoryCourse.update');
         Route::get('{categoryCourse}/delete', [CourseCategoryController::class, 'destroy'])->name('categoryCourse.destroy');
+        Route::get('{categoryCourse}/lihat-siswa', [EnrolmentController::class, 'index'])->name('categoryCourse.lihat-siswa');
     });
 
     Route::prefix('course')->group(function(){
@@ -65,12 +64,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/create', [CourseController::class, 'create'])->name('course.create');
         Route::get('{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
         Route::put('{course}/update', [CourseController::class, 'update'])->name('course.update');
-        Route::get('{course}/lihat-siswa', [EnrolmentController::class, 'index'])->name('course.lihat-siswa');
         Route::get('{course}/delete', [CourseController::class, 'destroy'])->name('course.destroy');
+        Route::get('{course}/lihat-tugas', [SubmitedTaskController::class, 'index'])->name('course.lihat-tugas');
     });
 
     Route::prefix('setigs')->group(function(){
-        Route::post('profile', [SettingController::class, 'profile'])->name('setings.profile');
+        Route::get('profile', [SettingController::class, 'profile'])->name('setings.profile');
+        Route::post('profile', [SettingController::class, 'updateProfile'])->name('setings.update');
+        Route::get('change-password', [SettingController::class, 'setPassword'])->name('setings.changePassword');
         Route::post('change-password', [SettingController::class, 'updatePassword'])->name('setings.changePassword');
     });
 });

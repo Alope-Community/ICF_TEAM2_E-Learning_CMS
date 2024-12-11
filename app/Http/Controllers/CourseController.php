@@ -37,8 +37,14 @@ class CourseController extends Controller
             return Course::dataTable($request);
         }
 
+        if (auth()->user()->role == 'Admin') {
+            $data = CategoryCourse::select(['id', 'name'])->get();
+        } else {
+            $data = CategoryCourse::where('user_id', auth()->user()->id)->select(['id', 'name'])->get();
+        }
+
         return view('course.index', [
-            'courseCategorys' => CategoryCourse::select(['id', 'name'])->get()
+            'courseCategorys' => $data
         ]);
     }
 

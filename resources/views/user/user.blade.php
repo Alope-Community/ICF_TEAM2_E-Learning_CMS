@@ -54,7 +54,11 @@
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="disableInput" class="form-label">Role</label>
-                                    <input type="text" disabled class="form-control" value="Teacher" id="role">
+                                    <select name="role" id="role" class="form-control">
+                                        <option disabled selected>Pilih Role</option>
+                                        <option value="Admin">Admin</option>
+                                        <option value="Teacher">Teacher</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6">

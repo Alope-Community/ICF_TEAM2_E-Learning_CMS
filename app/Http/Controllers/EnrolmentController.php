@@ -11,17 +11,17 @@ use Illuminate\Support\Facades\DB;
 
 class EnrolmentController extends Controller
 {
-    public function index(Course $course, Request $request)
+    public function index(CategoryCourse $categoryCourse)
     {
-        if ($request->ajax()) {
-            Enrolment::dataTables($course->id);
-        }
+        
+        $enrolemts = Enrolment::where('category_id', $categoryCourse->id)->get();
         $data = [
-            'totalSiswa' => '200',
-            'namaKelas' => $course->name
+            'totalSiswa' => $enrolemts->count(),
+            'namaKelas' => $categoryCourse->name
         ];
-        return view('inrolment.index', [
-            'data' => $data
+        return view('enrolement.index', [
+            'data' => $data,
+            'enrolment' => $enrolemts
         ]);
     }
 

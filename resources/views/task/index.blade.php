@@ -15,8 +15,8 @@
                 <table id="dataTable" class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>course</th>
-                            <th>task</th>
+                            <th>Materi</th>
+                            <th>Tugas</th>
                             <th>created_at</th>
                             <th>action</th>
                         </tr>

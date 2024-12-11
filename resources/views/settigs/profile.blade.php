@@ -7,11 +7,11 @@
             <form id="formUpdate">
                 <div class="form col-lg-12">
                     <label for="basicInput" class="form-label">Nama</label>
-                    <input type="text" placeholder="Inputkan nama" class="form-control" value="{{ auth()->user()->name }}" name="name" id="name">
+                    <input type="text" placeholder="Inputkan nama" class="form-control" value="{{ auth()->user()->name }}" name="name">
                 </div>
                 <div class="form col-lg-12">
                     <label for="basicInput" class="form-label">Email</label>
-                    <input type="text" placeholder="Inputkan nama" class="form-control" value="{{ auth()->user()->email }}" name="name" id="name">
+                    <input type="text" placeholder="Inputkan nama" class="form-control" value="{{ auth()->user()->email }}" name="email">
                 </div>
                 <div class="form col-lg-12">
                     <label for="basicInput" class="form-label">Gender</label>
@@ -23,7 +23,7 @@
                 </div>
                 <div class="form col-lg-12">
                     <label for="basicInput" class="form-label">Domisili</label>
-                    <textarea type="text" placeholder="Inputkan Domisili" class="form-control" value="{{ auth()->user()->domisili }}" name="domisili" id="domisili"></textarea>
+                    <input type="text" placeholder="Inputkan Nomor Hp" class="form-control" value="{{ auth()->user()->phone }}" name="phone" >
                 </div>
                 <div class="mt-2 mb-2">
                     <hr>
@@ -32,4 +32,33 @@
             </form>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+          const form = $('#formUpdate')
+        ajaxSetup()
+        form.on('submit', function(e) {
+            e.preventDefault();
+            let formData = $(this).serialize();
+
+            ajaxSetup();
+            $.ajax({
+                url: "{{ route('setings.profile') }}",
+                method: 'POST',
+                data: formData,
+                dataType: 'json',
+            }).done(response => {
+                let {
+                    message
+                } = response;
+
+                successNotification('Berhasil', message);
+                reloadDT();
+
+            }).fail(error => {
+                ajaxErrorHandling(error);
+            })
+        })
+    </script>
 @endsection

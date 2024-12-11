@@ -51,13 +51,14 @@
                                     <input type="link" class="form-control" name="image" id="image">
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="basicInput" class="form-label">Deskripsi</label>
                                     <textarea type="text" placeholder="Inputkan Deskripsi" name="description" class="form-control" id="description"></textarea>
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 </div>
                             </div>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -93,10 +94,12 @@
                                         name="image" id="image">
                                 </div>
                             </div>
+
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="basicInput" class="form-label">Deskripsi</label>
                                     <textarea type="text" placeholder="Inputkan Deskripsi" name="description" class="form-control" id="description"></textarea>
+                                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 </div>
                             </div>
 

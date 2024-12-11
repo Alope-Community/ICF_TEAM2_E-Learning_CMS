@@ -18,6 +18,15 @@ class Validations
             'password.min' => "Password Minimal 7 Karakter",
         ]);
     }
+    public static function updateProfil($request){
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|unique:users,email,'.auth()->user()->id,
+        ],[
+            'name.required' => "Nama Wajib Diisi",
+            'email.required' => "Email Wajib Diisi",
+        ]);
+    }
 
     public static function login($request){
         $request->validate([
@@ -58,7 +67,6 @@ class Validations
             'course' => 'required',
             'description' => 'required',
             'category_course_id' => 'required',
-            'user_id' => 'required'
         ]);
     }
 

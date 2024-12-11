@@ -9,7 +9,7 @@
                 <a href="#" class="user-dropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <div class="label">
                         <span></span>
-                        <div>Admin</div>
+                        <div>{{ auth()->user()->role }}</div>
                     </div>
                     <img class="img-user" src="../assets/images/avatar1.png" alt="user"srcset="">
                 </a>

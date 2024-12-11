@@ -1,5 +1,5 @@
-@extends('layouts.master')
-@section('content')
-<h1>hi</h1>
-<h1>{{ Auth::user()->name }}</h1>
-@endsection
+@if (auth()->user()->role == 'Admin')
+    @include('dashboard.menu.admin')
+@elseif (auth()->user()->role == 'Teacher')
+    @include('dashboard.menu.teacher')
+@endif
