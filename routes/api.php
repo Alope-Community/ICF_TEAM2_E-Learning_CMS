@@ -7,7 +7,9 @@ use App\Http\Controllers\EnrolmentController;
 // use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SocialAccountController;
+use App\Http\Controllers\SubmitedTaskController;
 use App\Models\CategoryCourse;
+use App\Models\Discussion;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,9 +41,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('settings')->group(function () {
         Route::get('/profile', [SettingController::class, 'getProfileAuth']);
         Route::post('/change-password', [SettingController::class, 'updatePassword']);
-        Route::post('/update-profil', [SettingController::class, 'updateProfil']);
+        Route::post('/update-profil', [SettingController::class, 'updateProfile']);
     });
 
 
     Route::get('category/{categoryCourse}/course', [CourseController::class, 'get'])->name('category.api');
+
+    Route::post('task/{task}/submited', [SubmitedTaskController::class, 'create']);
+
+    // Route::get('discussion/{course}/read');
 });

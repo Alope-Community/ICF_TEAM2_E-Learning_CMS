@@ -76,4 +76,13 @@ class Validations
             'course_id' => 'required',
         ]);
     }
+
+    public static function createSubmited($request){
+        $request->validate([
+            'file' =>  'required|file:pdf',
+        ], [
+            'file.required' => 'Tugas Wajib Di Isi',
+            'file.file' => 'Tugas Harus Berbentuk Pdf'
+        ]);
+    }
 }
