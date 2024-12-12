@@ -8,6 +8,8 @@ use App\MyClass\Response;
 use App\MyClass\Validations;
 use Illuminate\Support\Facades\DB;
 use App\Models\CategoryCourse;
+use App\Models\Discussion;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -15,7 +17,7 @@ class CourseController extends Controller
     public function get(CategoryCourse $categoryCourse)
     {
         try {
-            $data = Course::where('category_course_id', $categoryCourse);
+            $data = Course::where('category_course_id', $categoryCourse->id)->get();
             if (!$data) {
                 return Response::invalid([
                     'message' => 'Data Belum Ada',
@@ -24,7 +26,24 @@ class CourseController extends Controller
             }
             return Response::success([
                 'data' => $data,
-                'title' => $categoryCourse->name
+                'title' => $categoryCourse->name,
+                'description' => $categoryCourse->description
+            ]);
+        } catch (Exception $e) {
+            return Response::error($e);
+        }
+    }
+
+    public function show(Course $course)
+    {
+        DB::beginTransaction();
+        $task = Task::where('course_id', $course->id)->get();
+        $discussion = Discussion::where('course_id', $course->id)->limit(3)->get();
+        try {
+            return Response::success([
+                'course' => $course,
+                'task' => $task,
+                'discussion' => $discussion
             ]);
         } catch (Exception $e) {
             return Response::error($e);

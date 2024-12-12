@@ -41,8 +41,8 @@
                             </thead>
                             <tbody>
                                 @foreach ($enrolment as $item)
-                                    <th>{{ $loop->iteration() }}</th>
-                                    <th>{{ $item->name }}</th>
+                                    <th>{{ $loop->iteration }}</th>
+                                    <th>{{ $item->user->name }}</th>
                                 @endforeach
                             </tbody>
                         </table>

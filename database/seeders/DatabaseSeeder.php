@@ -36,42 +36,42 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('12345678'),
             'role' => 'User'
         ]);
-        
+
         // Category Course Seed
         CategoryCourse::create([
             'name' => 'HTML Dasar',
             'description' => 'HTML (HyperText Markup Language) merupakan sebuah bahasa markup, bukan bahasa pemrograman',
-            'image' => 'https://github.com/BillyJonathan29/assets-icf/html.png',
+            'image' => 'https://raw.githubusercontent.com/BillyJonathan29/assets-icf/main/html.png',
             'user_id' => 1
         ]);
         CategoryCourse::create([
             'name' => 'HTML Lanjutan',
             'description' => ' HTML tingkat lanjut merujuk pada fitur dan teknik dalam HTML yang lebih kompleks dan ....',
-            'image' => 'https://github.com/BillyJonathan29/assets-icf/html.png',
+            'image' => 'https://raw.githubusercontent.com/BillyJonathan29/assets-icf/main/html.png',
             'user_id' => 1
         ]);
         CategoryCourse::create([
             'name' => 'CSS Dasar',
             'description' => 'Apa itu CSS? CSS adalah singkatan dari Cascading Style Sheets . CSS menjelaskan tentang ....',
-            'image' => 'https://github.com/BillyJonathan29/assets-icf/py.png',
+            'image' => 'https://raw.githubusercontent.com/BillyJonathan29/assets-icf/main/py.png',
             'user_id' => 2
         ]);
         CategoryCourse::create([
             'name' => 'CSS Layouting',
             'description' => 'Tata letak grid CSS adalah sistem tata letak dua dimensi untuk web . Sistem ini memungkinkan Anda.....',
-            'image' => 'https://github.com/BillyJonathan29/assets-icf/py.png',
+            'image' => 'https://raw.githubusercontent.com/BillyJonathan29/assets-icf/main/py.png',
             'user_id' => 2
         ]);
         CategoryCourse::create([
             'name' => 'CSS Zero To Hero',
             'description' => ' CSS Zero to Hero" mengajarkan dasar hingga mahir CSS, mulai dari selektor, tata letak, hingga animasi, untuk membuat ...',
-            'image' => 'https://github.com/BillyJonathan29/assets-icf/js.png',
+            'image' => 'https://raw.githubusercontent.com/BillyJonathan29/assets-icf/main/js.png',
             'user_id' => 2
         ]);
         CategoryCourse::create([
             'name' => 'Web Responsive',
             'description' => ' Responsive Web adalah teknik desain web yang membuat tampilan situs menyesuaikan berbagai ukuran layar, dari desktop hingga ....',
-            'image' => 'https://github.com/BillyJonathan29/assets-icf/css.png',
+            'image' => 'https://raw.githubusercontent.com/BillyJonathan29/assets-icf/main/css.png',
             'user_id' => 2
         ]);
 

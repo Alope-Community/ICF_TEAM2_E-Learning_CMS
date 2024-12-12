@@ -25,20 +25,20 @@ class User extends Authenticatable
      * @return Functions
      */
     public function setPassword($password)
-	{
-		$this->update([
-			'password'	=> Hash::make($password)
-		]);
-		return $this;
-	}
+    {
+        $this->update([
+            'password'    => Hash::make($password)
+        ]);
+        return $this;
+    }
     public function comparePassword($password)
-	{
-		return Hash::check($password, $this->password);
-	}
+    {
+        return Hash::check($password, $this->password);
+    }
 
     public static function dataTable($request)
     {
-        $data = self::select([ 'users.*' ]);
+        $data = self::select(['users.*']);
 
         return DataTables::eloquent($data)
             ->addColumn('action', function ($data) {
@@ -48,7 +48,7 @@ class User extends Authenticatable
                             pilih Aksi
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><button class="dropdown-item btn-delete"" data-delete-href="'. route('user.destroy', $data->id) . '">Hapus</button></li>
+                            <li><button class="dropdown-item btn-delete"" data-delete-href="' . route('user.destroy', $data->id) . '">Hapus</button></li>
                         </ul>
                     </div>
                 ';
@@ -62,13 +62,15 @@ class User extends Authenticatable
     /**
      * @return For Crud User
      */
-    public static function createUser($request){
+    public static function createUser($request)
+    {
         $user = self::create($request);
         $user->setPassword($request['password']);
         return $user;
     }
 
-    public function updateUser($request){
+    public function updateUser($request)
+    {
         $this->update($request->except('password'));
         $this->setPassword($request->password);
         return $this;
@@ -76,4 +78,8 @@ class User extends Authenticatable
     /**
      * @return Relathionship
      */
+    public function enrolments()
+    {
+        return $this->hasMany(Enrolment::class, 'user_id');
+    }
 }
