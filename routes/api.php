@@ -45,6 +45,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
+    Route::get('category/{course}/course-detail', [CourseController::class, 'show']);
     Route::get('category/{categoryCourse}/course', [CourseController::class, 'get'])->name('category.api');
 
     Route::post('task/{task}/submited', [SubmitedTaskController::class, 'create']);
