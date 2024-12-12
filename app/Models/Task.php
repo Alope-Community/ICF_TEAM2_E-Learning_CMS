@@ -36,6 +36,7 @@ class Task extends Model
                             pilih Aksi
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="'. route('task.lihat-tugas', $data->id) . '">Lihat Data Pengumpulan</a></li>
                             <li><button class="dropdown-item btn-edit" data-edit-href="' . route('task.update', $data->id) . '" data-get-href="' . route('task.edit', $data->id) . '" class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"data-bs-target="#updateModal">Edit</button></li>
                             <li><button class="dropdown-item btn-delete"" data-delete-href="'. route('task.destroy', $data->id) . '">Hapus</button></li>
                         </ul>

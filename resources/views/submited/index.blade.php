@@ -10,18 +10,13 @@
                 <div class="card-body">
                     <table class="table" style="width: 100%;">
                         <tr>
-                            <td style="border-bottom: none;" width="45%">Materi Tugas</td>
-                            <td style="border-bottom: none;" width="2%">:</td>
-                            <td style="border-bottom: none;">{{ $data['namaTugas'] }}</</td>
-                        </tr>
-                        <tr>
                             <td style="border-bottom: none;">Soal Tugas</td>
                             <td style="border-bottom: none;">:</td>
-                            <td style="border-bottom: none;">{{ $data['soalTugas'] }}</</td>
+                            <td style="border-bottom: none;">{{ $data ? $data['soalTugas'] : 'Data Belum Ada' }}</</td>
                         </tr>
-                            <td style="border-bottom: none;">Total Siswa</td>
+                            <td style="border-bottom: none;">Total Siswa Mengumpulkan</td>
                             <td style="border-bottom: none;">:</td>
-                            <td style="border-bottom: none;">{{ $data['totalPengumpulan'] }}</</td>
+                            <td style="border-bottom: none;">{{ $data ? $data['totalPengumpulan'] : 'Data Belum Ada'}}</</td>
                         </tr>
     
                     </table>
@@ -41,11 +36,14 @@
                                 <tr>
                                     <th style="width: 10%">No</th>
                                     <th>Nama</th>
+                                    <th>File Tugas</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($submited as $item)
                                     <th>{{ $loop->iteration() }}</th>
+                                    <th>{{ $submited->user->name }}</th>
+                                    <th>{{ $submited->task }}</th>
                                 @endforeach
                             </tbody>
                         </table>

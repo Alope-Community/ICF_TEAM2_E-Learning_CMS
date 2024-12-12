@@ -9,18 +9,24 @@ use Illuminate\Http\Request;
 
 class SubmitedTaskController extends Controller
 {
-    public function index(Course $course){
-        $task = Task::where('course_id', $course->id)->first();
-        $submited = Submited::where('task_id', $task->id)->get();
-        $data = [
-            'totalPengumpulan' => $submited->count(),
-            'namaTugas' => $course->name,
-            'soalTugas' => $task->task
-        ];
+    public function index(Task $task){
+            if ($task) {
+                $submited = Submited::where('task_id', $task->id)->get();
+            } else {
+                $submited = [];
+            }
 
-        return view('submited.index', [
-            'data' => $data,
-            'submited' => $submited
-        ]);
+            $data = [
+                'totalPengumpulan' => $submited ? $submited->count() : 0,
+                'soalTugas' => $task ? $task->task : '-'
+            ];
+            return view('submited.index', [
+                'data' => $data,
+                'submited' => $submited
+            ]);
+    }
+
+    public function create(Request $request, Task $task){
+        
     }
 }

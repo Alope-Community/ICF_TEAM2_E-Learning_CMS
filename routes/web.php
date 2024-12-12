@@ -42,6 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::get('{task}/edit', [TaskController::class, 'edit'])->name('task.edit');
         Route::put('{task}/update', [TaskController::class, 'update'])->name('task.update');
         Route::get('{task}/destroy', [TaskController::class, 'destroy'])->name('task.destroy');
+        Route::get('{task}/lihat-pengumpulan-tugas', [SubmitedTaskController::class, 'index'])->name('task.lihat-tugas');
     });
 
     Route::middleware('isAdmin')->prefix('user')->group(function(){
@@ -65,7 +66,6 @@ Route::middleware('auth')->group(function () {
         Route::get('{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
         Route::put('{course}/update', [CourseController::class, 'update'])->name('course.update');
         Route::get('{course}/delete', [CourseController::class, 'destroy'])->name('course.destroy');
-        Route::get('{course}/lihat-tugas', [SubmitedTaskController::class, 'index'])->name('course.lihat-tugas');
     });
 
     Route::prefix('setigs')->group(function(){
