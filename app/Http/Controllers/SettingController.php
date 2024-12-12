@@ -38,6 +38,8 @@ class SettingController extends Controller
         $data = [
             'name' => $request->user()->name,
             'email' => $request->user()->email,
+            'gender' => $request->user()->gender,
+            'phone' => $request->user()->phone,
         ];
         return Response::success([
             'message' => 'Get data success',
