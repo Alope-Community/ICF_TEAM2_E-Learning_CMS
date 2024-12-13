@@ -53,11 +53,7 @@ Route::middleware('auth')->group(function () {
     });
 
 
-<<<<<<< HEAD
-    Route::prefix('category-course')->group(function(){
-=======
     Route::prefix('category-course')->group(function () {
->>>>>>> 83733bde31b9889f741b6d0331dd7788586e0937
         Route::get('', [CourseCategoryController::class, 'index'])->name('categoryCourse');
         Route::post('/create', [CourseCategoryController::class, 'create'])->name('categoryCourse.create');
         Route::get('{categoryCourse}/edit', [CourseCategoryController::class, 'edit'])->name('categoryCourse.edit');

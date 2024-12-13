@@ -14,14 +14,10 @@ class Submited extends Model
     /**
      * @return Relasi
      */
-<<<<<<< HEAD
-    public function user(){
-        return $this->belongsTo(User::class, 'user_id', 'id');
-=======
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
->>>>>>> 83733bde31b9889f741b6d0331dd7788586e0937
     }
 
     public function task()

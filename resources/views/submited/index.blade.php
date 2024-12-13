@@ -44,10 +44,6 @@
                             <tbody>
                                 @foreach ($submited as $item)
                                     <th>{{ $loop->iteration }}</th>
-<<<<<<< HEAD
-                                    <th>{{ $submited->user->name }}</th>
-                                    <th>{{ $submited->task }}</th>
-=======
                                     <th>{{ $item->user->name }}</th>
                                     <th>
                                         @if ($item)
@@ -59,7 +55,6 @@
                                     <th>{{ $item->grade ? $item->grade->grade : 'Belum Ada'  }}</th>
                                     <th>
                                         <button class="btn btn-sm btn-primary" data-id-item="{{ route('submited.grade', $item->id) }}" type="button" id="grade">Nilai +</button></th>
->>>>>>> 83733bde31b9889f741b6d0331dd7788586e0937
                                 @endforeach
                             </tbody>
                         </table>
