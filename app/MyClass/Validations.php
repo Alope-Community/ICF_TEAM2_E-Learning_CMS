@@ -6,33 +6,36 @@ use App\Rules\ValidateUserPassword;
 
 class Validations
 {
-    public static function register($request){
+    public static function register($request)
+    {
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:7|max:20'
-        ],[
+        ], [
             'name.required' => "Nama Wajib Diisi",
             'email.required' => "Email Wajib Diisi",
             'password.required' => "Password Wajib Diisi",
             'password.min' => "Password Minimal 7 Karakter",
         ]);
     }
-    public static function updateProfil($request){
+    public static function updateProfil($request)
+    {
         $request->validate([
             'name' => 'required|string',
-            'email' => 'required|unique:users,email,'.auth()->user()->id,
-        ],[
+            'email' => 'required|unique:users,email,' . auth()->user()->id,
+        ], [
             'name.required' => "Nama Wajib Diisi",
             'email.required' => "Email Wajib Diisi",
         ]);
     }
 
-    public static function login($request){
+    public static function login($request)
+    {
         $request->validate([
             'email' => "required|exists:users,email",
             'password' => "required",
-        ],[
+        ], [
             'email.required' => "Email Wajib Diisi",
             'password.required' => "Password Wajib Diisi",
             'email.exists' => "Email Tidak Ditemukan",
@@ -40,12 +43,13 @@ class Validations
         ]);
     }
 
-    public static function updatePassword($request){
+    public static function updatePassword($request)
+    {
         $request->validate([
             'old_password' => ['required', new ValidateUserPassword($request->user()->id)],
             'new_password' => 'required|min:7',
             'confirm_password' => 'required|same:new_password',
-        ],[
+        ], [
             'old_password.required' => 'Password lama harus diisi',
             'new_password.required' => 'Password baru wajib di isi',
             'confirm_password.required' => 'Konfirmasi password baru wajib di isi',
@@ -53,7 +57,8 @@ class Validations
         ]);
     }
 
-    public static function createDataCategory($request){
+    public static function createDataCategory($request)
+    {
         $request->validate([
             'name' => 'required|string|unique:category_courses,name',
             'image' => 'required',
@@ -61,7 +66,8 @@ class Validations
         ]);
     }
 
-    public static function createDataCourse($request){
+    public static function createDataCourse($request)
+    {
         $request->validate([
             'name' => 'required|string|unique:courses,name',
             'course' => 'required',
@@ -70,19 +76,37 @@ class Validations
         ]);
     }
 
-    public static function task($request){
+    public static function task($request)
+    {
         $request->validate([
             'task' => 'required',
-            'course_id' => 'required',
+            'course_id' => 'required:unique:tasks,course_id',
+        ], [
+            'course_id.unique' => "Anda Sudah Sudah Memberi Tugas"
         ]);
     }
 
-    public static function createSubmited($request){
+    public static function createSubmited($request)
+    {
         $request->validate([
-            'file' =>  'required|file:pdf',
+            'file' =>  'required|mimes:pdf',
         ], [
             'file.required' => 'Tugas Wajib Di Isi',
             'file.file' => 'Tugas Harus Berbentuk Pdf'
+        ]);
+    }
+
+    public static function createGrade($request)
+    {
+        $request->validate([
+            'grade' => 'required',
+        ]);
+    }
+
+    public static function createDiscusion($request)
+    {
+        $request->validate([
+            'discussion' => 'required'
         ]);
     }
 }

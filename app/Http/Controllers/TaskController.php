@@ -18,11 +18,11 @@ class TaskController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->ajax()) {
-			return Task::dataTable($request);
-		}
-        return view('task.index',[
-                'courses' => Course::select(['id', 'name'])->get()
+        if ($request->ajax()) {
+            return Task::dataTable($request);
+        }
+        return view('task.index', [
+            'courses' => Course::select(['id', 'name'])->get()
         ]);
     }
 
@@ -34,14 +34,20 @@ class TaskController extends Controller
         Validations::task($request);
 
         try {
-            Task::create($request->all());
+            $task = Task::where('course_id', $request->course_id);
+            if ($task) {
+                return Response::invalid([
+                    'message' => 'Tugas Course Tersebut Telah Ada'
+                ]);
+            } else {
+                Task::create($request->all());
 
-            DB::commit();
+                DB::commit();
 
-            return Response::success([
-                'message' => 'created data successfully',
-            ]);
-
+                return Response::success([
+                    'message' => 'created data successfully',
+                ]);
+            }
         } catch (Exception $e) {
             DB::rollBack();
             return Response::error($e);
@@ -75,7 +81,7 @@ class TaskController extends Controller
         DB::beginTransaction();
 
         try {
-            $task -> updateTask($request->all());
+            $task->updateTask($request->all());
 
             DB::commit();
             return Response::success();
@@ -94,7 +100,7 @@ class TaskController extends Controller
         DB::beginTransaction();
 
         try {
-            $task -> deleteTask();
+            $task->deleteTask();
 
             DB::commit();
             return Response::success();

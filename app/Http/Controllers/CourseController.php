@@ -9,6 +9,8 @@ use App\MyClass\Validations;
 use Illuminate\Support\Facades\DB;
 use App\Models\CategoryCourse;
 use App\Models\Discussion;
+use App\Models\Grade;
+use App\Models\Submited;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -34,15 +36,30 @@ class CourseController extends Controller
         }
     }
 
-    public function show(Course $course)
+    public function show(Course $course, Request $request)
     {
         DB::beginTransaction();
-        $task = Task::where('course_id', $course->id)->get();
+        $id = $request->user()->id;
+        $task = Task::where('course_id', $course->id)->first();
+        if ($task) {
+            $submition = DB::table('submiteds')->where('task_id', $task->id)->where('user_id', $id)->first();
+        } else {
+            $submition = null;
+        }
+
+        if ($submition) {
+            $grade = Grade::where('submited_id', $submition->id)->first();
+        } else {
+            $grade = null;
+        }
+
         $discussion = Discussion::where('course_id', $course->id)->limit(3)->get();
         try {
             return Response::success([
                 'course' => $course,
                 'task' => $task,
+                'submited' => $submition,
+                'grade' => $grade,
                 'discussion' => $discussion
             ]);
         } catch (Exception $e) {

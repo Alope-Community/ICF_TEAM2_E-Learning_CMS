@@ -9,42 +9,37 @@ class Submited extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     /**
      * @return Relasi
      */
+<<<<<<< HEAD
     public function user(){
         return $this->belongsTo(User::class, 'user_id', 'id');
+=======
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+>>>>>>> 83733bde31b9889f741b6d0331dd7788586e0937
     }
 
-    public function task(){
-        return $this->belongsTo(Task::class. 'task_id');
+    public function task()
+    {
+        return $this->belongsTo(Task::class, 'task_id');
+    }
+
+    public function grade()
+    {
+        return $this->hasOne(Grade::class, 'submited_id');
     }
 
     /**
      * Create Update delete
      */
-    public static function createSubmited($request){
-        $data = self::create($request->all());
-        $data->saveFile($request->file);
-
+    public static function createSubmited($request)
+    {
+        $data = self::create($request);
         return $data;
-    }
-
-    // public function FilePath()
-	// {
-	// 	return storage_path('app/public/storage/submited/' . $this->file);
-	// }
-
-    public function saveFile($request){
-        if ($request->hasFile('file')) {
-			$file = $request->file('file');
-			$filename = date('YmdHis_') . $file->getClientOriginalName();
-			$file->move(storage_path('app/public/storage/submited'), $filename);
-			$this->update([
-				'file' => $filename,
-			]);
-		}
-
-		return $this;
     }
 }
