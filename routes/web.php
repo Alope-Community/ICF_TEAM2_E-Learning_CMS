@@ -10,6 +10,7 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\RedirectController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\EnrolmentController;
 use App\Http\Controllers\SubmitedTaskController;
 use App\Http\Controllers\TaskController;
@@ -50,7 +51,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{user}/delete', [UserController::class, 'destroy'])->name('user.destroy');
     });
 
-    
+
     Route::prefix('category-course')->group(function(){
         Route::get('', [CourseCategoryController::class, 'index'])->name('categoryCourse');
         Route::post('/create', [CourseCategoryController::class, 'create'])->name('categoryCourse.create');
@@ -66,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::get('{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
         Route::put('{course}/update', [CourseController::class, 'update'])->name('course.update');
         Route::get('{course}/delete', [CourseController::class, 'destroy'])->name('course.destroy');
+        Route::get('{course}/discussion', [DiscussionController::class, 'index'])->name('discussion');
     });
 
     Route::prefix('setigs')->group(function(){

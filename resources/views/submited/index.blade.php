@@ -18,7 +18,7 @@
                             <td style="border-bottom: none;">:</td>
                             <td style="border-bottom: none;">{{ $data ? $data['totalPengumpulan'] : 'Data Belum Ada'}}</</td>
                         </tr>
-    
+
                     </table>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                             </thead>
                             <tbody>
                                 @foreach ($submited as $item)
-                                    <th>{{ $loop->iteration() }}</th>
+                                    <th>{{ $loop->iteration }}</th>
                                     <th>{{ $submited->user->name }}</th>
                                     <th>{{ $submited->task }}</th>
                                 @endforeach
