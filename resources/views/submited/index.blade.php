@@ -124,6 +124,7 @@
                     reloadDT();
 
                     modal.modal('hide');
+                    window.location.reload
 
                 }).fail(error => {
                     ajaxErrorHandling(error);

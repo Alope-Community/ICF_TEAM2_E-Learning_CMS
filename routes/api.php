@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
+use App\Http\Controllers\api\DiscussionController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrolmentController;
@@ -44,9 +45,10 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/update-profil', [SettingController::class, 'updateProfile']);
     });
 
-    
 
 
+
+    Route::get('category/{course}/discussion', [DiscussionController::class, 'create']);
     Route::get('category/{course}/course-detail', [CourseController::class, 'show']);
     Route::get('category/{categoryCourse}/course', [CourseController::class, 'get'])->name('category.api');
 

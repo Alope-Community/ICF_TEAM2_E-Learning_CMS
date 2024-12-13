@@ -41,8 +41,18 @@ class CourseController extends Controller
         DB::beginTransaction();
         $id = $request->user()->id;
         $task = Task::where('course_id', $course->id)->first();
-        $submition = DB::table('submiteds')->where('task_id', $task->id)->where('user_id', $id)->first();
-        $grade = Grade::where('submited_id', $submition->id)->first();
+        if ($task) {
+            $submition = DB::table('submiteds')->where('task_id', $task->id)->where('user_id', $id)->first();
+        } else {
+            $submition = null;
+        }
+
+        if ($submition) {
+            $grade = Grade::where('submited_id', $submition->id)->first();
+        } else {
+            $grade = null;
+        }
+
         $discussion = Discussion::where('course_id', $course->id)->limit(3)->get();
         try {
             return Response::success([

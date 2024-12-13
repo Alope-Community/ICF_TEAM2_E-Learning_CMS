@@ -102,4 +102,11 @@ class Validations
             'grade' => 'required',
         ]);
     }
+
+    public static function createDiscusion($request)
+    {
+        $request->validate([
+            'discussion' => 'required'
+        ]);
+    }
 }
