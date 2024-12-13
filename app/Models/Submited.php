@@ -21,7 +21,12 @@ class Submited extends Model
 
     public function task()
     {
-        return $this->belongsTo(Task::class . 'task_id');
+        return $this->belongsTo(Task::class, 'task_id');
+    }
+
+    public function grade()
+    {
+        return $this->hasOne(Grade::class, 'submited_id');
     }
 
     /**
@@ -32,23 +37,4 @@ class Submited extends Model
         $data = self::create($request);
         return $data;
     }
-
-    // public function FilePath()
-    // {
-    // 	return storage_path('app/public/storage/submited/' . $this->file);
-    // }
-
-    // public function saveFile($request)
-    // {
-    //     if ($request->file('file')) {
-    //         $file = $request->file('file');
-    //         $filename = date('YmdHis_') . $file->getClientOriginalName();
-    //         $file->move(storage_path('app/public/storage/submited'), $filename);
-    //         $this->update([
-    //             'file' => $filename,
-    //         ]);
-    //     }
-
-    //     return $this;
-    // }
 }

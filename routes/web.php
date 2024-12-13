@@ -13,6 +13,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EnrolmentController;
 use App\Http\Controllers\SubmitedTaskController;
 use App\Http\Controllers\TaskController;
+use App\Models\Submited;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ use App\Http\Controllers\TaskController;
 */
 
 
-Route::middleware('guest')->group(function(){
+Route::middleware('guest')->group(function () {
     Route::redirect('/', 'login');
     Route::get('/login', [LoginController::class, 'index'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('requestLogin');
@@ -36,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/dashboard', [RedirectController::class, 'Dashboard'])->name('dashboard');
 
-    Route::prefix('task')->group(function(){
+    Route::prefix('task')->group(function () {
         Route::get('', [TaskController::class, 'index'])->name('tasks');
         Route::post('/store', [TaskController::class, 'store'])->name('task.store');
         Route::get('{task}/edit', [TaskController::class, 'edit'])->name('task.edit');
@@ -45,13 +46,13 @@ Route::middleware('auth')->group(function () {
         Route::get('{task}/lihat-pengumpulan-tugas', [SubmitedTaskController::class, 'index'])->name('task.lihat-tugas');
     });
 
-    Route::middleware('isAdmin')->prefix('user')->group(function(){
+    Route::middleware('isAdmin')->prefix('user')->group(function () {
         Route::get('', [UserController::class, 'index'])->name('users');
         Route::get('/{user}/delete', [UserController::class, 'destroy'])->name('user.destroy');
     });
 
-    
-    Route::prefix('category-course')->group(function(){
+
+    Route::prefix('category-course')->group(function () {
         Route::get('', [CourseCategoryController::class, 'index'])->name('categoryCourse');
         Route::post('/create', [CourseCategoryController::class, 'create'])->name('categoryCourse.create');
         Route::get('{categoryCourse}/edit', [CourseCategoryController::class, 'edit'])->name('categoryCourse.edit');
@@ -60,7 +61,7 @@ Route::middleware('auth')->group(function () {
         Route::get('{categoryCourse}/lihat-siswa', [EnrolmentController::class, 'index'])->name('categoryCourse.lihat-siswa');
     });
 
-    Route::prefix('course')->group(function(){
+    Route::prefix('course')->group(function () {
         Route::get('', [CourseController::class, 'index'])->name('course');
         Route::post('/create', [CourseController::class, 'create'])->name('course.create');
         Route::get('{course}/edit', [CourseController::class, 'edit'])->name('course.edit');
@@ -68,10 +69,12 @@ Route::middleware('auth')->group(function () {
         Route::get('{course}/delete', [CourseController::class, 'destroy'])->name('course.destroy');
     });
 
-    Route::prefix('setigs')->group(function(){
+    Route::prefix('setigs')->group(function () {
         Route::get('profile', [SettingController::class, 'profile'])->name('setings.profile');
         Route::post('profile', [SettingController::class, 'updateProfile'])->name('setings.update');
         Route::get('change-password', [SettingController::class, 'setPassword'])->name('setings.changePassword');
         Route::post('change-password', [SettingController::class, 'updatePassword'])->name('setings.changePassword');
     });
+
+    Route::post('submited/{submited}/grade', [SubmitedTaskController::class, 'createGrade'])->name('submited.grade');
 });

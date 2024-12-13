@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Grade;
 use App\Models\Submited;
 use App\Models\Task;
 use App\MyClass\Response;
@@ -32,7 +33,7 @@ class SubmitedTaskController extends Controller
         ]);
     }
 
-    public function create(Request $request, Task $task)
+    public function create(Task $task, Request $request)
     {
         Validations::createSubmited($request);
         DB::beginTransaction();
@@ -43,7 +44,7 @@ class SubmitedTaskController extends Controller
                 ->exists();
 
             if ($isSubmited) {
-                return Response::success([
+                return Response::invalid([
                     'message' => 'Anda Sudah Mengumpulkan Tugas',
                 ]);
             } else {
@@ -52,7 +53,7 @@ class SubmitedTaskController extends Controller
 
                 // Membuat nama file berdasarkan tanggal upload
                 $timestamp = Carbon::now()->format('Y-m-d');
-                $fileName = $task->task . "_" .  $timestamp . '.' . $pdfFile->getClientOriginalExtension();
+                $fileName = str_replace(' ', '-', $task->task) . "_" .  $timestamp . '.' . $pdfFile->getClientOriginalExtension();
 
                 $path = $pdfFile->storeAs('public/task_submited', $fileName);
 
@@ -71,6 +72,38 @@ class SubmitedTaskController extends Controller
             }
         } catch (Exception $e) {
             DB::rollBack();
+            return Response::error($e);
+        }
+    }
+
+
+    public function createGrade(Request $request, Submited $submited)
+    {
+        Validations::createGrade($request);
+        DB::beginTransaction();
+
+        try {
+            $grade = DB::table('grades')
+                ->where([
+                    'submited_id' => $submited->id,
+                ])->exists();
+
+            if ($grade) {
+                return Response::invalid([
+                    'message' => 'Anda Sudah Menginput Nilai'
+                ]);
+            }
+            Grade::create([
+                'submited_id' => $submited->id,
+                'grade' => $request->grade,
+            ]);
+            DB::commit();
+            return Response::success([
+                'message' => 'Nilai Berhasil Di Upload',
+            ]);
+        } catch (Exception $e) {
+            DB::rollBack();
+
             return Response::error($e);
         }
     }

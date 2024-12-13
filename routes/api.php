@@ -44,6 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/update-profil', [SettingController::class, 'updateProfile']);
     });
 
+    
+
 
     Route::get('category/{course}/course-detail', [CourseController::class, 'show']);
     Route::get('category/{categoryCourse}/course', [CourseController::class, 'get'])->name('category.api');

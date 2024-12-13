@@ -80,7 +80,9 @@ class Validations
     {
         $request->validate([
             'task' => 'required',
-            'course_id' => 'required',
+            'course_id' => 'required:unique:tasks,course_id',
+        ], [
+            'course_id.unique' => "Anda Sudah Sudah Memberi Tugas"
         ]);
     }
 
@@ -91,6 +93,13 @@ class Validations
         ], [
             'file.required' => 'Tugas Wajib Di Isi',
             'file.file' => 'Tugas Harus Berbentuk Pdf'
+        ]);
+    }
+
+    public static function createGrade($request)
+    {
+        $request->validate([
+            'grade' => 'required',
         ]);
     }
 }

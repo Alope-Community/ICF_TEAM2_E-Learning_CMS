@@ -17,7 +17,7 @@
                         <tr>
                             <th>Materi</th>
                             <th>Tugas</th>
-                            <th>created_at</th>
+                            <th>Dibuat</th>
                             <th>action</th>
                         </tr>
                     </thead>
