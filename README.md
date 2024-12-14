@@ -42,11 +42,23 @@ Migrate to local server
   php artisan migrate
 ```
 
+Seed to Your local database
+
+
+```bash
+  php artisan db:seed
+```
+
 Start the server
 
 ```bash
   php artisan serve
 ```
+
+To Acces web 
+Admin = fikry@gmail.com (12345678)
+Teacher = rizky@gmail.com (12345678)
+Student = billy@gmail.com (12345678)
 
 
 ## Team
