@@ -21,8 +21,17 @@ class TaskController extends Controller
         if ($request->ajax()) {
             return Task::dataTable($request);
         }
+
+        $coursesQuery = Course::select(['id', 'name']);
+
+        if (auth()->user()->role !== 'Admin') {
+            $coursesQuery->whereHas('categoryCourse', function ($query) {
+                $query->where('user_id', auth()->user()->id);
+            });
+        }
+
         return view('task.index', [
-            'courses' => Course::select(['id', 'name'])->get()
+            'courses' => $coursesQuery->get()
         ]);
     }
 
@@ -34,7 +43,8 @@ class TaskController extends Controller
         Validations::task($request);
 
         try {
-            $task = Task::where('course_id', $request->course_id);
+            $task = DB::table('tasks')
+                ->where('course_id', $request->course_id)->exists();;
             if ($task) {
                 return Response::invalid([
                     'message' => 'Tugas Course Tersebut Telah Ada'

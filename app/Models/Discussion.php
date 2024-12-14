@@ -10,6 +10,8 @@ class Discussion extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function course()
     {
         return $this->belongsTo(Course::class, 'course_id', 'id');
@@ -21,17 +23,14 @@ class Discussion extends Model
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
 
-    public static function dataTable($request)
+    public function reply()
     {
-        $data = self::select(['discussions.*']);
+        return $this->hasOne(ReplyDiscussion::class, 'discussion_id');
+    }
 
-        return DataTables::eloquent($data)
-            ->editColumn('course_id', function($data){
-                return $data->course ? $data->course->name : 'Tidak Diketahui';
-            })
-            ->editColumn('user_id', function($data){
-                return $data->user ? $data->user->name : 'Tidak Diketahui';
-            })
-            ->make(true);
+    public static function createDiscussion($request)
+    {
+        $data = self::create($request);
+        return $data;
     }
 }

@@ -37,7 +37,7 @@
                             <div class="col-7 col-stats">
                                 <div class="numbers">
                                     <p class="card-category"> Total Kategori Materi</p>
-                                    <h4 class="card-title">{{ App\Models\CategoryCourse::all()->count() }}</h4>
+                                    <h4 class="card-title">{{ App\Models\CategoryCourse::where('user_id', auth()->user()->id)->count() }}</h4>
                                 </div>
                             </div>
                         </div>
@@ -56,10 +56,14 @@
                             </div>
                             <div class="col-7 col-stats">
                                 <div class="numbers">
-                                    <p class="card-category"> Total Materi </p>
-                                    <h4 class="card-title">{{ App\Models\Course::all()->count() }} </h4>
+                                    <p class="card-category">Total Materi</p>
+                                    <h4 class="card-title">
+                                        {{ App\Models\Course::whereHas('categoryCourse', function ($query) {
+                                            $query->where('user_id', auth()->user()->id);
+                                        })->count() }}
+                                    </h4>
                                 </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                 </div>

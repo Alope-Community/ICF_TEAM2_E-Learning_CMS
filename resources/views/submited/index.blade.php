@@ -77,7 +77,7 @@
                             <div class="col-md-12">
                                 <div class="mb-3">
                                     <label for="basicInput" class="form-label">Nilai</label>
-                                    <input type="text" placeholder="Inputkan nama" class="form-control" name="grade">
+                                    <input type="number" placeholder="Inputkan nilai" class="form-control" name="grade">
                                 </div>
                             </div>
                         </div>

@@ -39,22 +39,27 @@ class CourseController extends Controller
     public function show(Course $course, Request $request)
     {
         DB::beginTransaction();
-        $id = $request->user()->id;
-        $task = Task::where('course_id', $course->id)->first();
-        if ($task) {
-            $submition = DB::table('submiteds')->where('task_id', $task->id)->where('user_id', $id)->first();
-        } else {
-            $submition = null;
-        }
-
-        if ($submition) {
-            $grade = Grade::where('submited_id', $submition->id)->first();
-        } else {
-            $grade = null;
-        }
-
-        $discussion = Discussion::where('course_id', $course->id)->limit(3)->get();
         try {
+            $id = $request->user()->id;
+            $task = Task::where('course_id', $course->id)->first();
+            if ($task) {
+                $submition = DB::table('submiteds')->where('task_id', $task->id)->where('user_id', $id)->first();
+            } else {
+                $submition = null;
+            }
+
+            if ($submition) {
+                $grade = Grade::where('submited_id', $submition->id)->first();
+            } else {
+                $grade = null;
+            }
+
+            $discussion = Discussion::with(['reply', 'user:id,name'])
+                ->where('users_id', $request->user()->id)
+                ->where('course_id', $course->id)
+                ->get();
+
+
             return Response::success([
                 'course' => $course,
                 'task' => $task,

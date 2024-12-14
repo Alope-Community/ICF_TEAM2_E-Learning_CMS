@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\api\AuthController;
-use App\Http\Controllers\api\DiscussionController;
 use App\Http\Controllers\CourseCategoryController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\EnrolmentController;
-// use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SocialAccountController;
 use App\Http\Controllers\SubmitedTaskController;
@@ -48,7 +47,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    Route::get('category/{course}/discussion', [DiscussionController::class, 'create']);
+    Route::post('course/{course}/discussion', [DiscussionController::class, 'create']);
     Route::get('category/{course}/course-detail', [CourseController::class, 'show']);
     Route::get('category/{categoryCourse}/course', [CourseController::class, 'get'])->name('category.api');
 

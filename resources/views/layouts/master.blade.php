@@ -27,6 +27,11 @@
     <link rel="stylesheet" href="{{ asset('vendor/izitoast/css/iziToast.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/izitoast/css/iziToast.min.css') }}">
     <link rel="stylesheet" href="{{ asset('vendor/sweetalert2/sweetalert2.min.css') }}">
+    <style>
+        .img{
+            width: 10%
+        }
+    </style>
 </head>
 
 <body>
@@ -39,8 +44,8 @@
             @yield('content')
         </div>
         <footer>
-            Copyright © 2024 &nbsp <a href="https://www.youtube.com/c/mulaidarinull" target="_blank" class="ml-1">
-                Mulai Dari Null </a> <span> . All rights Reserved</span>
+            Dibuat <a href="#" class="ml-1">
+               Alope Team 2 </a> <span> . All rights Reserved</span>
         </footer>
         <div class="overlay action-toggle">
         </div>

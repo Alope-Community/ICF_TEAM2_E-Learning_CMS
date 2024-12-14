@@ -16,7 +16,7 @@
                         <td style="border-bottom: none;">{{ $data['namaKelas'] }}</</td>
                     </tr>
                     <tr>
-                        <td style="border-bottom: none;">Total Siswa</td>
+                        <td style="border-bottom: none;">Total Siswa Berdiskusi</td>
                         <td style="border-bottom: none;">:</td>
                         <td style="border-bottom: none;">{{ $data['totalSiswa'] }}</</td>
                     </tr>
@@ -39,6 +39,7 @@
                                 <th style="width: 10%">No</th>
                                 <th>Nama</th>
                                 <th>Discussion</th>
+                                <th>Balasan</th>
                                 <th>action</th>
                             </tr>
                         </thead>
@@ -48,8 +49,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $item->user->name ?? 'Unknown User' }}</td>
                                     <td>{{ $item->discussion ?? 'No Discussion' }}</td>
+                                    <td>{{ $item->reply->message ?? 'TIdak Ada Balasan' }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-reply" data-href="{{ $item->id }}" type="button" data-bs-toggle="modal" data-bs-target="#createModal">Balas</button>
+                                        <button class="btn btn-sm btn-primary btn-reply" data-href="{{ route('reply.discussion', $item->id)}}" type="button" >Balas</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -62,7 +64,7 @@
 
 </div>
 
-<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="createModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -74,8 +76,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="basicInput" class="form-label">Pesan</label>
-                                <input type="text" placeholder="Inputkan nama" class="form-control" name="message" id="message">
+                                <label for="basicInput" class="form-label">Balas Diskusi</label>
+                                <textarea type="text" placeholder="balas diskusi ini" class="form-control" name="message" id="message"></textarea>
                             </div>
                         </div>
                     </div>
@@ -98,42 +100,39 @@
             autoWidth: false,
         });
 
+        const modal = $('#createModal')
+        $('.btn-reply').on('click', function(){
+            console.log('klik');
+            
+            const url = $(this).data('href');
+            modal.modal('show');
 
-    $('.btn-reply').on('click', function (e) {
-    e.preventDefault();
+            $('#formCreate').on('submit',function (e){
+                e.preventDefault();
 
-    var dataHref = $(this).data('href'); // Ambil ID dari tombol
-    $('#createModal').modal('show');
+                const data = $(this).serialize();
 
-    $('#submit').off('click').one('click', function () {
-        if (!$('#message').val()) {
-            alert('Pesan tidak boleh kosong!');
-            return;
-        }
+                ajaxSetup();
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: data,
+                    dataType: 'json',
+                }).done(response => {
+                    let {
+                        message
+                    } = response;
 
-        $.ajax({
-            url: "{{ route('reply.discussion') }}",
-            type: 'POST',
-            data: {
-                discussion_id: dataHref,
-                message: $('#message').val()
-            },
-            success: function (response) {
-                successNotification('Berhasil', 'Data Berhasil Ditambahkan');
-                $('#dataTable').DataTable().ajax.reload();
-                $('#createModal').modal('hide');
-            },
-            error: function (xhr, status, error) {
-                ajaxErrorHandling(error);
-            }
+                    successNotification('Berhasil', message);
+                    reloadDT();
+
+                    modal.modal('hide');
+                    
+                    $('#dataTable').DataTable().reload();
+                }).fail(error => {
+                    ajaxErrorHandling(error);
+                })
+            })
         });
-    });
-});
-
-// Reset form ketika modal ditutup
-$('#createModal').on('hidden.bs.modal', function () {
-    $('#formCreate')[0].reset();
-});
-
     </script>
 @endsection

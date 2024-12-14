@@ -69,7 +69,6 @@ Route::middleware('auth')->group(function () {
         Route::put('{course}/update', [CourseController::class, 'update'])->name('course.update');
         Route::get('{course}/delete', [CourseController::class, 'destroy'])->name('course.destroy');
         Route::get('{course}/discussion', [DiscussionController::class, 'index'])->name('discussion');
-        Route::get('replyDiscussion', [DiscussionController::class, 'replyDiscussion'])->name('reply.discussion');
     });
 
     Route::prefix('setigs')->group(function () {
@@ -80,4 +79,6 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('submited/{submited}/grade', [SubmitedTaskController::class, 'createGrade'])->name('submited.grade');
+
+    Route::post('course/{discussion}/reply-discussion', [DiscussionController::class, 'replyDiscussion'])->name('reply.discussion');
 });
