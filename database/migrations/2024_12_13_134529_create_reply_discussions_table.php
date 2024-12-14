@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reply_discussions', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('discussion_id');
+            $table->bigInteger('user_id');
             $table->text('message');
             $table->timestamps();
         });

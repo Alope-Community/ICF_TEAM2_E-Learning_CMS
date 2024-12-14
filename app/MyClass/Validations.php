@@ -109,4 +109,12 @@ class Validations
             'discussion' => 'required'
         ]);
     }
+
+    public static function createReplyDiscussion($request)
+    {
+        $request->validate([
+            'discussion_id' => 'required',
+            'message' => 'required'
+        ]);
+    }
 }

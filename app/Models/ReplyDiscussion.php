@@ -10,4 +10,11 @@ class ReplyDiscussion extends Model
     use HasFactory;
 
     protected $guarded =  [];
+
+    public static function createReplyDiscussion($request)
+    {
+        $data = self::create($request);
+        return $data;
+    }
 }
+

@@ -49,7 +49,7 @@
                                     <td>{{ $item->user->name ?? 'Unknown User' }}</td>
                                     <td>{{ $item->discussion ?? 'No Discussion' }}</td>
                                     <td>
-                                        <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#createModal">Balas</button>
+                                        <button class="btn btn-sm btn-reply" data-href="{{ $item->id }}" type="button" data-bs-toggle="modal" data-bs-target="#createModal">Balas</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -74,9 +74,8 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="basicInput" class="form-label">Nama</label>
-                                <input type="text" placeholder="Inputkan nama" class="form-control" name="name"
-                                    id="name">
+                                <label for="basicInput" class="form-label">Pesan</label>
+                                <input type="text" placeholder="Inputkan nama" class="form-control" name="message" id="message">
                             </div>
                         </div>
                     </div>
@@ -98,5 +97,43 @@
             processing: true,
             autoWidth: false,
         });
+
+
+    $('.btn-reply').on('click', function (e) {
+    e.preventDefault();
+
+    var dataHref = $(this).data('href'); // Ambil ID dari tombol
+    $('#createModal').modal('show');
+
+    $('#submit').off('click').one('click', function () {
+        if (!$('#message').val()) {
+            alert('Pesan tidak boleh kosong!');
+            return;
+        }
+
+        $.ajax({
+            url: "{{ route('reply.discussion') }}",
+            type: 'POST',
+            data: {
+                discussion_id: dataHref,
+                message: $('#message').val()
+            },
+            success: function (response) {
+                successNotification('Berhasil', 'Data Berhasil Ditambahkan');
+                $('#dataTable').DataTable().ajax.reload();
+                $('#createModal').modal('hide');
+            },
+            error: function (xhr, status, error) {
+                ajaxErrorHandling(error);
+            }
+        });
+    });
+});
+
+// Reset form ketika modal ditutup
+$('#createModal').on('hidden.bs.modal', function () {
+    $('#formCreate')[0].reset();
+});
+
     </script>
 @endsection
