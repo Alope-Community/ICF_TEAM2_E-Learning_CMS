@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 use App\Models\CategoryCourse;
 use App\Models\Course;
+use App\Models\Discussion;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -95,5 +97,45 @@ class DatabaseSeeder extends Seeder
             'course' => 'https://www.youtube.com/embed/sAHcNLKWaa4',
             'category_course_id' => 6
         ]);
+
+        Task::create([
+            'course_id' => 1,
+            'task' => 'Buatlah sebuah halaman HTML sederhana dengan menggunakan tag dasar seperti <html>, <head>, <body>, dan tambahkan elemen seperti heading, paragraf, dan gambar.',
+        ]);
+        
+        Task::create([
+            'course_id' => 2,
+            'task' => 'Kustomisasi halaman HTML yang telah Anda buat sebelumnya dengan menambahkan gaya menggunakan CSS, seperti mengatur warna latar belakang, ukuran font, dan margin.',
+        ]);
+        
+        Task::create([
+            'course_id' => 6,
+            'task' => 'Tentukan layout responsif untuk sebuah halaman web sederhana yang menyesuaikan tampilan berdasarkan ukuran layar. Gunakan teknik CSS Grid atau Flexbox.',
+        ]);
+
+
+
+        Discussion::create([
+            'course_id' => 1,
+            'users_id' => 3,
+            'discussion' => 'Bagaimana cara menggunakan tag <div> dengan benar?',
+        ]);
+        
+        Discussion::create([
+            'course_id' => 2,
+            'users_id' => 3,
+            'discussion' => 'Apa perbedaan antara CSS Grid dan Flexbox dalam layouting?',
+        ]);
+        
+        Discussion::create([
+            'course_id' => 6,
+            'users_id' => 3,
+            'discussion' => 'Bagaimana memastikan desain responsif dapat bekerja di semua perangkat?',
+        ]);
+
+
+        
+        
+        
     }
 }
