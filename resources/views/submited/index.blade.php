@@ -26,7 +26,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header mt-1">
-                    Detail Siswa Ikut Materi
+                    Detail Pengempulan Materi
                 </div>
                 <hr>
                 <div class="card-body">

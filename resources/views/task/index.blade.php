@@ -3,7 +3,7 @@
 @section('content')
     <div class="col-lg-12 card">
         <div class="card-header mt-1">
-            Data kategori Materi
+            Data Tugas
             <div class="float-end">
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="modal"
                     data-bs-target="#createModal">Tambah +</button>

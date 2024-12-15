@@ -28,7 +28,7 @@
     <div class="col-lg-7">
         <div class="card">
             <div class="card-header mt-1">
-                Detail Siswa Ikut Materi
+                Detail Diskusi Siswa
             </div>
             <hr>
             <div class="card-body">
@@ -103,7 +103,7 @@
         const modal = $('#createModal')
         $('.btn-reply').on('click', function(){
             console.log('klik');
-            
+
             const url = $(this).data('href');
             modal.modal('show');
 
@@ -127,7 +127,7 @@
                     reloadDT();
 
                     modal.modal('hide');
-                    
+
                     $('#dataTable').DataTable().reload();
                 }).fail(error => {
                     ajaxErrorHandling(error);
